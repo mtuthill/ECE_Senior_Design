@@ -30,4 +30,4 @@ to_classify = scaler.transform(to_classify)
 
 #Make predictions
 y_pred = classifier.predict(to_classify)
-print(y_pred)
+print("predictions are ", y_pred)
