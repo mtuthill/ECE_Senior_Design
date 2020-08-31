@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 f1_total = 0
-num_passes = 100
+num_passes = 500
 
 for x in range(num_passes):
 
