@@ -1,8 +1,14 @@
 # ECE492
-https://github.com/NVIDIA/jetson-gpio = Link for GPIO Library Used<br/>
 <br/>
 To run UI on Windows: <br/>
-I am using a WSL running Ubuntu <br/>
+Use command prompt
+run "python3" which should bring up the windows store to install Python3. If not you'll need to be install python3
+run "pip3 install PyQt5"
+Then lastly run "python3 pythonUI.py" which should run the UI and load it
+
+OR
+
+Use a WSL running Ubuntu (or another distro) <br/>
 <br/>
 On the WSL: <br/>
 Had to install PyQt5 using sudo apt-get install python3-pyqt5 <br/>
