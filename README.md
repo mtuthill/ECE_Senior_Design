@@ -22,4 +22,4 @@ https://sourceforge.net/projects/xming/ <br/>
 After that, should be able to run UI and see it show up in a Xming window<br/>
 
 <br/>
-To convert from the Qt designer to a python class: run "pyside2-uit form.ui > ui_mainwindow.py"
+To convert from the Qt designer to a python class: run "pyside2-uic form.ui > ui_mainwindow.py"
