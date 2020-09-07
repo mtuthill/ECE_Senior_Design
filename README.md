@@ -1,4 +1,4 @@
-# ECE492
+# ECE492/ECE494
 <br/>
 To run UI on Windows: <br/>
 Use command prompt
