@@ -194,7 +194,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QGridLayout" name="resultLayout" rowstretch="1,5" columnstretch="1,6,1">
+     <layout class="QGridLayout" name="resultLayout" rowstretch="1,6" columnstretch="1,2,1">
       <item row="1" column="0">
        <spacer name="horizontalSpacer_6">
         <property name="orientation">
