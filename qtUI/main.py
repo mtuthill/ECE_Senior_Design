@@ -21,7 +21,7 @@ class MainWindow:
         self.ui.classifyButton.clicked.connect(self.classifyButtonClicked)
 
         #Add spectrogram to UI
-        self.ui.spectrogram.setPixmap(QPixmap("../Five Class ASL/Breath/04020036_1582825283_Raw_0.png"))
+        self.ui.spectrogram.setPixmap(QPixmap("../Five Class ASL/Earthquake/04030005_1582051352_Raw_0.png"))
 
         #Add test gif to UI
         gifTest = QMovie("media/person_Falling.gif")

@@ -95,7 +95,7 @@
       <item row="0" column="0">
        <widget class="QPushButton" name="btn_select">
         <property name="text">
-         <string>Open</string>
+         <string>Change Video</string>
         </property>
        </widget>
       </item>
