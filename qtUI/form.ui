@@ -16,8 +16,8 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout" stretch="5,2,2">
     <item>
-     <layout class="QGridLayout" name="spectrogramLayout" rowstretch="1,6" columnstretch="1,6,0,0">
-      <item row="1" column="3">
+     <layout class="QGridLayout" name="spectrogramLayout" rowstretch="1,6" columnstretch="1,6,1,6,1">
+      <item row="1" column="4">
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -26,6 +26,52 @@
          <size>
           <width>88</width>
           <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="1">
+       <spacer name="verticalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="spectrogram">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <spacer name="horizontalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="3">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>18</height>
          </size>
         </property>
        </spacer>
@@ -44,30 +90,74 @@
        </spacer>
       </item>
       <item row="1" column="1">
-       <widget class="QLabel" name="spectrogram">
+       <widget class="QVideoWidget" name="wgt_player" native="true"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="btn_select">
         <property name="text">
-         <string/>
+         <string>Open</string>
         </property>
        </widget>
-      </item>
-      <item row="0" column="1">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>18</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </item>
     <item>
-     <layout class="QGridLayout" name="buttonAlgLayout" rowstretch="1,1,1">
-      <item row="2" column="1" colspan="2">
+     <layout class="QGridLayout" name="buttonAlgLayout" rowstretch="1,1,1,0" columnstretch="1,1,1,1,2,0">
+      <item row="2" column="5" rowspan="2">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>188</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="0" rowspan="2">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>168</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="stopButton">
+        <property name="text">
+         <string>Stop</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="playButton">
+        <property name="text">
+         <string>Play</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="4">
+       <widget class="QPushButton" name="classifyButton">
+        <property name="text">
+         <string>Classify</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" alignment="Qt::AlignBottom">
+       <widget class="QLabel" name="algorithmLabel">
+        <property name="text">
+         <string>Classification Algorithm</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2" colspan="2">
        <widget class="QComboBox" name="algorithmDropDown">
         <item>
          <property name="text">
@@ -81,7 +171,7 @@
         </item>
        </widget>
       </item>
-      <item row="0" column="2">
+      <item row="0" column="3">
        <spacer name="verticalSpacer_2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -94,43 +184,10 @@
         </property>
        </spacer>
       </item>
-      <item row="1" column="4" rowspan="2">
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>188</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="0" rowspan="2">
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>168</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="3">
-       <widget class="QPushButton" name="classifyButton">
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pauseButton">
         <property name="text">
-         <string>Classify</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" alignment="Qt::AlignBottom">
-       <widget class="QLabel" name="algorithmLabel">
-        <property name="text">
-         <string>Classification Algorithm</string>
+         <string>Pause</string>
         </property>
        </widget>
       </item>
@@ -189,6 +246,14 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QVideoWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">PyQt5.QtMultimediaWidgets</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
