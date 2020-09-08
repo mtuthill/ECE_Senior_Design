@@ -34,11 +34,22 @@ class MainWindow:
         self.player.setMedia(QMediaContent(QUrl.fromLocalFile("media/testMP4.mp4")))
         self.player.play()
         self.ui.btn_select.clicked.connect(self.openVideoFile)
+        self.ui.playButton.clicked.connect(self.play)
+        self.ui.pauseButton.clicked.connect(self.pause)
+        self.ui.stopButton.clicked.connect(self.stop)
 
     def openVideoFile(self):
         self.player.setMedia(QMediaContent(QFileDialog.getOpenFileUrl()[0]))
         self.player.play()
 
+    def play(self):
+        self.player.play()
+
+    def pause(self):
+        self.player.pause()
+
+    def stop(self):
+        self.player.stop()
 
     def classifyButtonClicked(self):
         #Classify based on selected algorithm, call function from other file
