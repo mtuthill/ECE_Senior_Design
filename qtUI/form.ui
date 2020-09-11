@@ -93,7 +93,7 @@
        <widget class="QVideoWidget" name="wgt_player" native="true"/>
       </item>
       <item row="0" column="0">
-       <widget class="QPushButton" name="btn_select">
+       <widget class="QPushButton" name="openVideoButton">
         <property name="text">
          <string>Change Video</string>
         </property>

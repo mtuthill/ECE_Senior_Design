@@ -32,7 +32,7 @@ class MainWindow:
         self.player.setVideoOutput(self.ui.wgt_player)
         self.player.setMedia(QMediaContent(QUrl.fromLocalFile("media/testMP4.mp4")))
         self.player.play()
-        self.ui.btn_select.clicked.connect(self.openVideoFile)
+        self.ui.openVideoButton.clicked.connect(self.openVideoFile)
         self.ui.playButton.clicked.connect(self.play)
         self.ui.pauseButton.clicked.connect(self.pause)
         self.ui.stopButton.clicked.connect(self.stop)
