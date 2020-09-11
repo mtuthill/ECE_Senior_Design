@@ -6,6 +6,8 @@ run "python3" which should bring up the windows store to install Python3. If not
 Navigate to the "qtUI" directory and then  run "python3 main.py" which should run the UI and load it
 Install packages missing using pip3
 
+<br/>
+<br/>
 Pushing to Git:
 Run these commands
 1. git pull
