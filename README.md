@@ -8,9 +8,8 @@ Install packages missing using pip3
 
 <br/>
 <br/>
-Pushing to Git:
-Run these commands
-1. git pull
-2. git add .
-3. git commit -m "Message"
-4. git push
+Pushing to Git, run these commands <br/>
+1. git pull <br/>
+2. git add . <br/>
+3. git commit -m "Message" <br/>
+4. git push <br/>
