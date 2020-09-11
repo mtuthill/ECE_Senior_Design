@@ -3,8 +3,8 @@
 To run UI on Windows: <br/>
 Use command prompt
 run "python3" which should bring up the windows store to install Python3. If not you'll need to be install python3
-run "pip3 install PyQt5"
-Then lastly run "python3 pythonUI.py" which should run the UI and load it
+Navigate to the "qtUI" directory and then  run "python3 main.py" which should run the UI and load it
+Install packages missing using pip3
 
 OR
 
