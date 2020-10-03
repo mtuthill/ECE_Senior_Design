@@ -5,8 +5,10 @@ import matlab.engine
 from PyQt5 import QtWidgets
 from MainWindow import MainWindow
 from ui_mainwindow import Ui_MainWindow
-from multiprocessing import Pool
+from multiprocessing import Process, Pool, Queue
 from time import sleep
+from os import listdir
+from os.path import isfile, join
 
 def readXbee():
     #readXbee
@@ -16,13 +18,16 @@ def readXbee():
 
     #sendXbee to callMatlab
 
-def callMatlab(num):
+def callMatlab():
     #need to pass in data from xbees
 
-    print("here")
+    #get filenames for spectrograms
+    path = "../../ECE_Senior_Design_Data/nonFallSpectrograms/05_Walking_towards_radar/"
+    onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
+
     eng = matlab.engine.start_matlab()
-    for i in range(0, 60):
-        returned = eng.generaterandom(20)
+    for file in onlyfiles:
+        returned = eng.dctFromPng(path + file)
         print(returned)
         sleep(1)
 
@@ -39,9 +44,9 @@ def startUI():
 if __name__ == "__main__":
     #sync calls
     pool = Pool()
-    result1 = pool.apply_async(callMatlab, 20)
+    result1 = pool.apply_async(callMatlab)
     result2 = pool.apply_async(startUI)
     result3 = pool.apply_async(readXbee)
-    callMatlab(10)
+    callMatlab()
 
 
