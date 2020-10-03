@@ -1,6 +1,5 @@
 import sys
 import os
-import PySide2
 
 from PyQt5.QtGui import *
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
