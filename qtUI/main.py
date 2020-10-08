@@ -13,7 +13,6 @@ from os.path import isfile, join
 def readXbee():
     #readXbee
     for i in range(40):
-        print("read")
         sleep(1.6548666)
 
     #sendXbee to callMatlab
@@ -28,7 +27,6 @@ def callMatlab():
     eng = matlab.engine.start_matlab()
     for file in onlyfiles:
         returned = eng.dctFromPng(path + file)
-        print(returned)
         sleep(1)
 
     eng.quit()
