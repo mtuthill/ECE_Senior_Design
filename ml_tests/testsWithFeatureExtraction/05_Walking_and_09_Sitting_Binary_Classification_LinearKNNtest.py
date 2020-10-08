@@ -9,6 +9,7 @@ from os.path import isfile, join
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.feature_selection import GenericUnivariateSelect
 
 #get filenames for spectrograms
 pathWalking = "../../../ECE_Senior_Design_Data/nonFallSpectrograms/05_Walking_towards_radar/"
@@ -38,6 +39,10 @@ allData = sittingData + walkingData
 
 #make classification list
 results = [0] * len(sittingData) + [1] * len(walkingData)
+
+#feature selection (keep 3/10 most impactfulfeatures)
+trans = GenericUnivariateSelect(score_func=lambda X, y: X.mean(axis=0), mode='percentile', param=30)
+allDataTrans = trans.fit_transform(allData, results)
 
 f1_total = 0
 
