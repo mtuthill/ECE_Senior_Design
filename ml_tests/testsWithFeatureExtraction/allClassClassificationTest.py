@@ -76,7 +76,6 @@ results = [0] * len(filesWalkingToward) + [1] * len(filesWalkingAway) + \
 [5] * len(filesKneeling) + [6] * len(filesCrawling) + [7] * len(filesWalkingOnToes) + \
 [8] * len(filesLimping) + [9] * len(filesShortSteps) + [10] * len(filesScissorsGait)
 
-print(results)
 #feature selection (keep 30% of features)
 trans = GenericUnivariateSelect(score_func=lambda X, y: X.mean(axis=0), mode='percentile', param=30)
 allDataTrans = trans.fit_transform(data, results)
