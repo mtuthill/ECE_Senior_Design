@@ -8,6 +8,7 @@ from os import listdir
 from os.path import isfile, join
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import GenericUnivariateSelect
 from sklearn.metrics import confusion_matrix
 
@@ -75,16 +76,20 @@ results = [0] * len(filesWalkingToward) + [1] * len(filesWalkingAway) + \
 [5] * len(filesKneeling) + [6] * len(filesCrawling) + [7] * len(filesWalkingOnToes) + \
 [8] * len(filesLimping) + [9] * len(filesShortSteps) + [10] * len(filesScissorsGait)
 
+print(results)
+#feature selection (keep 30% of features)
+trans = GenericUnivariateSelect(score_func=lambda X, y: X.mean(axis=0), mode='percentile', param=30)
+allDataTrans = trans.fit_transform(data, results)
 
 f1_total = 0
 
 for x in range(500):
 
 	#divide dataset
-	dataTrain, dataTest, resultTrain, resultTest = train_test_split(data, results, test_size = 0.3)
+	dataTrain, dataTest, resultTrain, resultTest = train_test_split(allDataTrans, results, test_size = 0.3)
 
 	#make classifier
-	classifier = SVC(kernel = 'linear', C = 1).fit(dataTrain, resultTrain)
+	classifier = RandomForestClassifier().fit(dataTrain, resultTrain)
 
 	#predict
 	predictions = classifier.predict(dataTest)
