@@ -14,7 +14,7 @@ def callMatlab():
     #get binary data
     dataPath = "./"
     onlyfiles = [f for f in listdir(dataPath) if isfile(join(dataPath, f))]
-    filename = 'empty_target_Raw_0.bin'
+    filename = 'target_Raw_0.bin'
     while (not(filename in onlyfiles)):
         print("file checked for")
         sleep(10)
