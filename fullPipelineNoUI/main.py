@@ -12,7 +12,7 @@ def findResult(num):
 	eng = matlab.engine.start_matlab()
 
 	#load classifier that is pretrained
-	classifierFile = "storedTestSVM.sav"
+	classifierFile = "stored_mRMR_SVM.sav"
 	classifier = joblib.load(classifierFile)
 
 	#find data
@@ -56,8 +56,18 @@ def findResult(num):
 	#get features
 	features = eng.dctFromPng(path + dataFile)
 
+	#use only the features selected from classifier
+	listofFeatures = []
+	with open('featuresSelected.txt', 'r') as h:
+		content = h.readlines() 
+		for line in content:
+			listofFeatures.append(int(line))
+
+	selectedFeaturesList = [features[0][i] for i in listofFeatures]
+	selectedFeatures = [selectedFeaturesList]
+
 	#get classification result
-	result = classifier.predict(features)
+	result = classifier.predict(selectedFeatures)
 
 	f.close()
 
@@ -70,8 +80,5 @@ def findResult(num):
 if __name__ == "__main__":
 	with Pool(3) as pool:
 		results = pool.map(findResult, [1, 2, 3])
-	
-	#pool.close()
-	#pool.join()
 
 	print(results)

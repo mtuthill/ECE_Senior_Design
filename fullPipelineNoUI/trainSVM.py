@@ -46,7 +46,7 @@ results = [0] * len(dataTwo) + [1] * len(dataOne)
 numpyArrayofArrays = numpy.array([numpy.array(xi) for xi in allData])
 colNames = []
 for i in range(10):
-	colNames.append(str(i + 1))
+	colNames.append(str(i))
 df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colNames)
 df.insert(0, "Classes", results)
 
