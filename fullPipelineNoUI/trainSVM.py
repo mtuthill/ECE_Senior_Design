@@ -42,30 +42,31 @@ allData = dataTwo + dataOne
 #make classification list
 results = [0] * len(dataTwo) + [1] * len(dataOne)
 
-#split into test/train
-allDataTrain, allDataTest, resultTrain, resultTest = train_test_split(allData, results, test_size = 0.25)
-
 #prepare data for feature selection
 numpyArrayofArrays = numpy.array([numpy.array(xi) for xi in allData])
-colNames = ["Cos1", "Cos2", "Cos3", "Cos4", "Cos5", "Cos6", "Cos7", "Cos8", "Cos9", "Cos10"]
+colNames = []
+for i in range(10):
+	colNames.append(str(i + 1))
 df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colNames)
 df.insert(0, "Classes", results)
 
 #improved feature selection using mRMR
 returned = pymrmr.mRMR(df, "MIQ", 3)
-print(returned)
+returnedInts = [int(i) for i in returned]
 
-#feature selection (keep 30% of features)
-#trans = GenericUnivariateSelect(score_func=lambda X, y: X.mean(axis=0), mode='percentile', param=30)
-#allDataTrans = trans.fit_transform(allData, results)
+#write ints to file that show what features are being used
+with open('featuresSelected.txt', 'w') as f:
+    for item in returnedInts:
+        f.write("%s\n" % item)
+
+#get data after feature selected
+dfFeatureSelectedData = df[df.columns[returnedInts]]
+dfFeatureSelectedResults = df[df.columns[0]]
 
 #Train algorithm
 classifier = SVC(kernel='linear')
-classifier.fit(allDataTrain, resultTrain)
+classifier.fit(dfFeatureSelectedData, dfFeatureSelectedResults)
 
-#Make predictions
-#predictions = classifier.predict(allDataTest)
-
-#write classifier
-#filename = "storedTestSVM.sav"
-#joblib.dump(classifier, filename)
+#save classifier
+filename = "stored_mRMR_SVM.sav"
+joblib.dump(classifier, filename)
