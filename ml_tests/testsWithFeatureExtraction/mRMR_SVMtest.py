@@ -52,7 +52,7 @@ df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colName
 df.insert(0, "Classes", results)
 
 #improved feature selection using mRMR
-returned = pymrmr.mRMR(df, "MIQ", 3)
+returned = pymrmr.mRMR(df, "MID", 3)
 returnedInts = [int(i) for i in returned]
 
 #get data after feature selected
@@ -60,18 +60,15 @@ dfFeatureSelectedData = df[df.columns[returnedInts]]
 dfFeatureSelectedResults = df[df.columns[0]]
 
 #Split test and training sets
-allDataTrain, allDataTest, resultTrain, resultTest = train_test_split(dfFeatureSelectedData, dfFeatureSelectedResults, test_size = 0.25)
-print(allDataTrain)
-print(allDataTest)
-print(resultTrain)
-print(resultTest)
+allDataTrain, allDataTest, resultTrain, resultTest = train_test_split(dfFeatureSelectedData, dfFeatureSelectedResults, test_size = 0.3, random_state=42)
 
 #Train algorithm
 classifier = SVC(kernel='linear')
 classifier.fit(allDataTrain, resultTrain)
 
 #Make predictions
-predictions = classifier.predict(allDataTest)
+predictions = list(classifier.predict(allDataTest))
+resultTest = list(resultTest)
 
 #show results
 print(sklearn.metrics.f1_score(resultTest, predictions, average = 'binary'))

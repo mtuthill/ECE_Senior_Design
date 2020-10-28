@@ -51,7 +51,7 @@ df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colName
 df.insert(0, "Classes", results)
 
 #improved feature selection using mRMR
-returned = pymrmr.mRMR(df, "MIQ", 3)
+returned = pymrmr.mRMR(df, "MID", 3)
 returnedInts = [int(i) for i in returned]
 
 #write ints to file that show what features are being used
