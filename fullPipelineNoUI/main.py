@@ -7,12 +7,19 @@ from multiprocessing import Pool
 from time import perf_counter
 from os.path import isfile, getsize
 
+classifierOption = "KNN"
+
 def findResult(num):
 	#annoyingly, matlab engine api does not like to pass an engine object to a different process
 	eng = matlab.engine.start_matlab()
 
 	#load classifier that is pretrained
-	classifierFile = "stored_mRMR_SVM.sav"
+	if (classifierOption == "KNN"):
+		classifierFile = "stored_mRMR_KNN.sav"
+	elif (classifierOption == "SVM"):
+		classifierFile = "stored_mRMR_SVM.sav"
+	else:
+		classifierFile = "stored_mRMR_SVM.sav"
 	classifier = joblib.load(classifierFile)
 
 	#find data
