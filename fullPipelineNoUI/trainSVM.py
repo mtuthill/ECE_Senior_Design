@@ -45,7 +45,7 @@ results = [0] * len(dataTwo) + [1] * len(dataOne)
 #prepare data for feature selection
 numpyArrayofArrays = numpy.array([numpy.array(xi) for xi in allData])
 colNames = []
-for i in range(10):
+for i in range(500):
 	colNames.append(str(i))
 df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colNames)
 df.insert(0, "Classes", results)
