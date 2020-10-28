@@ -2,16 +2,16 @@ import sys
 import os
 import matlab.engine
 import sklearn.metrics
-import numpy as np
+import numpy
+import joblib
+import pandas
+import pymrmr
 
 from os import listdir
 from os.path import isfile, join
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.feature_selection import GenericUnivariateSelect
-from sklearn.metrics import confusion_matrix
-
+from sklearn.metrics import classification_report, confusion_matrix
 
 #get filenames for spectrograms
 pathWalkingToward = "../../../ECE_Senior_Design_Data/nonFallSpectrograms/0_Walking_towards_radar/"
@@ -63,7 +63,7 @@ data = []
 i = 0
 for fileList in listOfFileLists:
 	for file in fileList:
-		data.append(np.array(eng.dctFromPng(listOfFilePaths[i] + file)).tolist())
+		data.append(numpy.array(eng.dctFromPng(listOfFilePaths[i] + file)).tolist())
 	i = i + 1
 eng.quit()    
 
@@ -76,25 +76,33 @@ results = [0] * len(filesWalkingToward) + [1] * len(filesWalkingAway) + \
 [5] * len(filesKneeling) + [6] * len(filesCrawling) + [7] * len(filesWalkingOnToes) + \
 [8] * len(filesLimping) + [9] * len(filesShortSteps) + [10] * len(filesScissorsGait)
 
-#feature selection (keep 30% of features)
-trans = GenericUnivariateSelect(score_func=lambda X, y: X.mean(axis=0), mode='percentile', param=30)
-allDataTrans = trans.fit_transform(data, results)
+#feature selection (keep 3 of 10 features)
+#prepare data for feature selection
+numpyArrayofArrays = numpy.array([numpy.array(xi) for xi in data])
+colNames = []
+for i in range(500):
+	colNames.append(str(i))
+df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colNames)
+df.insert(0, "Classes", results)
 
-f1_total = 0
+#improved feature selection using mRMR
+returned = pymrmr.mRMR(df, "MID", 3)
+returnedInts = [int(i) for i in returned]
 
-for x in range(500):
+#get data after feature selected
+dfFeatureSelectedData = df[df.columns[returnedInts]]
+dfFeatureSelectedResults = df[df.columns[0]]
 
-	#divide dataset
-	dataTrain, dataTest, resultTrain, resultTest = train_test_split(allDataTrans, results, test_size = 0.3)
+#Split test and training sets
+allDataTrain, allDataTest, resultTrain, resultTest = train_test_split(dfFeatureSelectedData, dfFeatureSelectedResults, test_size = 0.3, random_state=42)
 
-	#make classifier
-	classifier = RandomForestClassifier().fit(dataTrain, resultTrain)
+#Train algorithm
+classifier = SVC(kernel='linear')
+classifier.fit(allDataTrain, resultTrain)
 
-	#predict
-	predictions = classifier.predict(dataTest)
+#Make predictions
+predictions = list(classifier.predict(allDataTest))
+resultTest = list(resultTest)
 
-	#show results
-	f1_total += sklearn.metrics.f1_score(resultTest, predictions, average = 'weighted')
-
-print("average f1 score in " + repr(500) + " passes = ", f1_total / 500)
-print("accuracy = ", classifier.score(dataTest, resultTest))
+#show results
+print(sklearn.metrics.f1_score(resultTest, predictions, average = 'weighted'))
