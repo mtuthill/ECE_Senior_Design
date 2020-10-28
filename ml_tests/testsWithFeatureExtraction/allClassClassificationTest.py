@@ -65,7 +65,8 @@ for fileList in listOfFileLists:
 	for file in fileList:
 		data.append(numpy.array(eng.dctFromPng(listOfFilePaths[i] + file)).tolist())
 	i = i + 1
-eng.quit()    
+
+eng.quit()
 
 #clean up
 data = [item for sublist in data for item in sublist]
