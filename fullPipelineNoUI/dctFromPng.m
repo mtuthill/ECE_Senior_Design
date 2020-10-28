@@ -6,6 +6,6 @@ I = im2double(I);
 
 T = dct(I);
 
-c = T(10:509);
+c = T(1:500);
 
 end
