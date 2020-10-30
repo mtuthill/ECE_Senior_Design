@@ -1,20 +1,19 @@
-function [c] = binToDct(fnameIn, fnameout, fnameBin)
+function [c] = binToDct(fnameIn, fnameout)
 %spec code
-datToImage_77(fnameIn, fnameout, fnameBin);
+microDoppler_AWR1642_bulk_BPM(fnameIn, fnameout);
 
 %DCT code
 I = imread(fnameout);
-%delete fnameout
 I = rgb2gray(I);
 I = im2double(I);
 
 T = dct(I);
 
 %get the coefficients after zig zagging
-%postZigZag = zigzag(T);
+postZigZag = zigzag(T);
 
-%c = postZigZag(1:500);
-c = T(1:10);
+c = postZigZag(1:500);
+delete(fnameout);
 
 end
 

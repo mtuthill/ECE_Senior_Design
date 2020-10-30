@@ -1,6 +1,9 @@
 function [ ] = datToImageV1_custom( fNameIn, fNameOut, fNameOut2, fnameBin)
     fileID = fopen(fNameIn, 'r'); % open file
     Data = fread(fileID, 'int16');% DCA1000 should read in two's complement data
+    %zero extend
+    A = zeros(39321600, 1);
+    Data(end+1:numel(A))=0;
     fclose(fileID); % close file
 
     numADCBits = 16; % number of ADC bits per sample
@@ -66,7 +69,7 @@ end
     sx = myspecgramnew(sum(rngpro(1:15,:),1),window,nfft,shift);                  % why row 8?
     sx1 = fftshift(sx,1);
     time = dT * length(Data)/NTS;
-    save(fNameOut2, 'sx1'); % save complex spect matrix
+    %save(fNameOut2, 'sx1'); % save complex spect matrix
     fig = figure('units','normalized','outerposition',[0 0 1 1]); % [left bottom width height]
     colormap(jet(256));
     doppSignMTI = imagesc(timeAxis,[-prf/2 prf/2],20*log10(abs(sx1/max(max(abs(sx1))))));
@@ -78,12 +81,12 @@ end
     fnamepng = strcat(fnameBin(1:end-4),'.png');
     fnamegray = strcat(fnameBin(1:end-4),'_gray.png');
     fnamefig = strcat(fNameOut, '\', fnameBin(1:end-4),'.fig');
-    imwrite(X,fullfile(fNameOut, fnamepng));
-    saveas(fig,fnamefig);
+    imwrite(X,fNameOut);
+    %saveas(fig,fnamefig);
     colormap(gray);
     F = getframe(gca);
     [X2, ~] = frame2im(F);
-    imwrite(X2,fullfile(fNameOut, fnamegray));
+    %imwrite(X2,fullfile(fNameOut, fnamegray));
     clear Data
     close all
 end
