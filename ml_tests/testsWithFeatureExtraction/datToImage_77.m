@@ -1,8 +1,12 @@
 function [ ] = datToImage_77( fNameIn, fNameOut, fnameBin )
     fileID = fopen(fNameIn, 'r'); % open file
-    Data = fread(fileID, 'int16');% DCA1000 should read in two's complement data
+    Data = fread(fileID, [39321600 1], 'int16');% DCA1000 should read in two's complement data
+    %78,643,200 bytes = 76,800 KB, zero extending data read in to make sure
+    %we have the right data size
+    A = zeros(39321600, 1);
+    Data(end+1:numel(A))=0;
     fclose(fileID); % close file
-
+    
     numADCBits = 16; % number of ADC bits per sample
     numLanes = 4; 
     fstart = 77.1799e9; % Start Frequency
@@ -89,13 +93,13 @@ end
     F = getframe(gca);
     [img,~] = frame2im(F);
     figname = strcat(fNameOut(1:end-4),'.fig');
-    saveas(fig,figname);
+    %saveas(fig,figname);
     imwrite(img,fNameOut)
     colormap(gray);
     grayim = strcat(fNameOut(1:end-4),'_gray.png');
     F = getframe(gca);
     [img,~] = frame2im(F);
-    imwrite(img,grayim)
+    %imwrite(img,grayim)
     clear Data
     close all
     fclose('all');

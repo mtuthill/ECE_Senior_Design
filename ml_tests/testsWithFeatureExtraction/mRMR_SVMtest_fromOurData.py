@@ -24,37 +24,40 @@ fallFiles = []
 nonFallFiles = []
 for name in names:
 	for fallDir in fallSubdirs:
-		fallFiles = fallFiles + [join(path, name, fallDir, f) for f in listdir(join(path, name, fallDir)) if isfile(join(path, name, fallDir, f))]
+		fallFiles = fallFiles + [(path + "/"  + name + "/" + fallDir + "/" + f) for f in listdir(join(path, name, fallDir)) if isfile(join(path, name, fallDir, f))]
 	for nonFallDir in nonFallSubdirs:
-		nonFallFiles = nonFallFiles + [join(path, name, fallDir, f) for f in listdir(join(path, name, nonFallDir)) if isfile(join(path, name, nonFallDir, f))]
+		nonFallFiles = nonFallFiles + [(path + "/"  + name + "/" + nonFallDir + "/" + f) for f in listdir(join(path, name, nonFallDir)) if isfile(join(path, name, nonFallDir, f))]
 
-#get features from spectrograms
+#get spectrograms and get features from spectrograms
 eng = matlab.engine.start_matlab()
-dataOne = []
-dataTwo = []
-for file in filesOne:
-    dataOne.append(numpy.array(eng.dctFromPng(pathOne + file, "out.png")).tolist())
+fallData = []
+nonFallData = []
 
-for file in filesTwo:
-    dataTwo.append(numpy.array(eng.dctFromPng(pathTwo + file, "out.png")).tolist())
+for file in nonFallFiles:
+	print(file)
+	nonFallData.append(numpy.array(eng.binToDct(file, "out.png", "random.py")).tolist())
+for file in fallFiles:
+	print(file)
+	fallData.append(numpy.array(eng.binToDct(file, "out.png", "random.py")).tolist())
+    
 
 eng.quit()    
 
 #Fixing data. Was [[[list], [list]]] now is [[list], [list]]
-dataTwo = [item for sublist in dataTwo for item in sublist]
-dataOne = [item for sublist in dataOne for item in sublist]
+nonFallData = [item for sublist in nonFallData for item in sublist]
+fallData = [item for sublist in fallData for item in sublist]
 
 #combine to form all data
-allData = dataTwo + dataOne
+allData = nonFallData + fallData
 
 #make classification list
-results = [0] * len(dataTwo) + [1] * len(dataOne)
+results = [0] * len(nonFallData) + [1] * len(fallData)
 
 #feature selection (keep 3 of 10 features)
 #prepare data for feature selection
 numpyArrayofArrays = numpy.array([numpy.array(xi) for xi in allData])
 colNames = []
-for i in range(500):
+for i in range(10):
 	colNames.append(str(i))
 df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colNames)
 df.insert(0, "Classes", results)
@@ -77,6 +80,9 @@ classifier.fit(allDataTrain, resultTrain)
 #Make predictions
 predictions = list(classifier.predict(allDataTest))
 resultTest = list(resultTest)
+
+print(predictions)
+print(resultTest)
 
 #show results
 print(sklearn.metrics.f1_score(resultTest, predictions, average = 'binary'))
