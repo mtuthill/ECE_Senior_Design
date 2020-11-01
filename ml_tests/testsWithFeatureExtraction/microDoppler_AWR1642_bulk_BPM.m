@@ -18,15 +18,15 @@ function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
     NPpF = numTX*NoC; % Number of pulses per frame
     numRX = 4;
     
-    numLanes = 2; % do not change. number of lanes is always 4 even if only 1 lane is used. unused lanes
+    numLanes = 4; % do not change. number of lanes is always 4 even if only 1 lane is used. unused lanes
     % NoF = fileSize/2/NPpF/numRX/NTS; % Number of frames
     numChirps = ceil(fileSize/2/NTS/numRX);
-    NoF = round(numChirps/NPpF); % Number of frames, 4 channels, I&Q channels (2)
+    %NoF = round(numChirps/NPpF); % Number of frames, 4 channels, I&Q channels (2)
+    NoF = 150;
     Np = numChirps;%floor(size(Data(:,1),1)/NTS); % #of pulses
     dT = SweepTime/NPpF; % 
     prf = 1/dT; %
     isReal = 0; % set to 1 if real only data, 0 if complex dataare populated with 0 %% read file and convert to signed number
-
     %% Data reshape
     % if 12 or 14 bits ADC per sample compensate for sign extension
     if numADCBits ~= 16
@@ -110,8 +110,8 @@ function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
     %% Spectrogram
     timeAxis = [1:NPpF*NoF]*SweepTime/NPpF ; % Time
     freqAxis = linspace(-prf/2,prf/2,nfft); % Frequency Axis
-    %fig = figure('visible','on');
-    %colormap(jet(256));
+    fig = figure('visible','on');
+    colormap(jet(256));
     set(gca,'units','normalized','outerposition',[0,0,1,1]);
     doppSignMTI = imagesc(timeAxis,[-prf/2 prf/2],20*log10(abs(sx2/max(sx2(:)))));
 %     axis xy

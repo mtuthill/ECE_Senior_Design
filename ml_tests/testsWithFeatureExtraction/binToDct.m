@@ -1,4 +1,4 @@
-function [c] = binToDct(fnameIn, fnameout)
+function [c] = binToDct(fnameIn, fnameout, numFeatures)
 %spec code
 microDoppler_AWR1642_bulk_BPM(fnameIn, fnameout);
 
@@ -12,7 +12,7 @@ T = dct(I);
 %get the coefficients after zig zagging
 postZigZag = zigzag(T);
 
-c = postZigZag(1:500);
+c = postZigZag(1:numFeatures);
 delete(fnameout);
 
 end

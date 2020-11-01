@@ -16,7 +16,7 @@ function [ ] = datToImageV1_custom( fNameIn, fNameOut, fNameOut2, fnameBin)
     SweepTime = 40e-3; % Time for 1 frame=sweep
     NTS = 256; % Number of time samples per sweep                               
     NPpF = 128; % Number of pulses per frame
-    NoF = 500; % Number of frames
+    NoF = 150; % Number of frames
     Bw = fstop - fstart; % Bandwidth
     sampleRate = 10e6; % Smpling Rate
     dT = SweepTime/NPpF; % 
