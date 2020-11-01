@@ -63,7 +63,8 @@ data = []
 i = 0
 for fileList in listOfFileLists:
 	for file in fileList:
-		data.append(numpy.array(eng.dctFromPng(listOfFilePaths[i] + file)).tolist())
+		data.append(numpy.array(eng.dctFromPngZigzag(listOfFilePaths[i] + file)).tolist())
+		print(listOfFilePaths[i] + file)
 	i = i + 1
 
 eng.quit()
@@ -84,18 +85,22 @@ colNames = []
 for i in range(500):
 	colNames.append(str(i))
 df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colNames)
-df.insert(0, "Classes", results)
+df.insert(500, "Classes", results)
+print(df)
 
 #improved feature selection using mRMR
-returned = pymrmr.mRMR(df, "MID", 3)
+returned = pymrmr.mRMR(df, "MIQ", 10)
 returnedInts = [int(i) for i in returned]
+print(returnedInts)
 
 #get data after feature selected
 dfFeatureSelectedData = df[df.columns[returnedInts]]
-dfFeatureSelectedResults = df[df.columns[0]]
+dfFeatureSelectedResults = df[df.columns[500]]
+print(dfFeatureSelectedData)
+print(dfFeatureSelectedResults)
 
 #Split test and training sets
-allDataTrain, allDataTest, resultTrain, resultTest = train_test_split(dfFeatureSelectedData, dfFeatureSelectedResults, test_size = 0.3, random_state=42)
+allDataTrain, allDataTest, resultTrain, resultTest = train_test_split(dfFeatureSelectedData, dfFeatureSelectedResults, test_size = 0.3)
 
 #Train algorithm
 classifier = SVC(kernel='linear')
@@ -104,6 +109,9 @@ classifier.fit(allDataTrain, resultTrain)
 #Make predictions
 predictions = list(classifier.predict(allDataTest))
 resultTest = list(resultTest)
+
+print(resultTest)
+print(predictions)
 
 #show results
 print(sklearn.metrics.f1_score(resultTest, predictions, average = 'weighted'))
