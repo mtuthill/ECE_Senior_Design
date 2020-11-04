@@ -159,4 +159,3 @@ class Ui_MainWindow(object):
         self.classifyButton.setText(QCoreApplication.translate("MainWindow", u"Classify", None))
         self.result.setText("")
     # retranslateUi
-

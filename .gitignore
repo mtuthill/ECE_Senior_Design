@@ -133,3 +133,5 @@ qtUI/Python/
 .png
 .zip
 /ml_tests/testsWithFeatureExtraction/*
+.pyc
+.pyuic
