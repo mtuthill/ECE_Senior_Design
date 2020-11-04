@@ -33,7 +33,7 @@ for name in names:
 eng = matlab.engine.start_matlab()
 fallData = []
 nonFallData = []
-numFeatures = 500
+numFeatures = 1000
 
 for file in nonFallFiles:
 	print(file)
@@ -57,7 +57,6 @@ allData = nonFallData + fallData
 #make classification list
 results = [0] * len(nonFallData) + [1] * len(fallData)
 
-#feature selection (keep 3 of 10 features)
 #prepare data for feature selection
 numpyArrayofArrays = numpy.array([numpy.array(xi) for xi in allData])
 colNames = []
@@ -68,7 +67,7 @@ df.insert(numFeatures, "Classes", results)
 print(df)
 
 #improved feature selection using mRMR
-returned = pymrmr.mRMR(df, "MIQ", 3)
+returned = pymrmr.mRMR(df, "MIQ", 4)
 returnedInts = [int(i) for i in returned]
 print(returnedInts)
 
