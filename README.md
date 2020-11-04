@@ -6,6 +6,9 @@ run "python3" which should bring up the windows store to install Python3. If not
 Navigate to the "qtUI" directory and then  run "python3 main.py" which should run the UI and load it <br/>
 Install packages missing using pip3 <br/>
 
+</br>
+To go from from.ui to .py: make sure pyside2 installed("pip install pyside2") then "pyside2-uic form.ui > ui_mainwindow.py"
+
 <br/>
 <br/>
 Pushing to Git, run these commands <br/>
