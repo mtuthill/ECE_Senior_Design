@@ -70,6 +70,7 @@ print(df)
 returned = pymrmr.mRMR(df, "MIQ", 4)
 returnedInts = [int(i) for i in returned]
 print(returnedInts)
+df.to_csv(r'dataFrame.csv', index = False, header = True)
 
 #get data after feature selected
 dfFeatureSelectedData = df[df.columns[returnedInts]]
