@@ -2,12 +2,13 @@ import sys
 import os
 import matlab.engine
 import joblib
+import time
 
 from multiprocessing import Pool
 from time import perf_counter
 from os.path import isfile, getsize
 
-classifierOption = "KNN"
+classifierOption = "SVM"
 
 def findResult(num):
 	#annoyingly, matlab engine api does not like to pass an engine object to a different process
@@ -16,10 +17,14 @@ def findResult(num):
 	#load classifier that is pretrained
 	if (classifierOption == "KNN"):
 		classifierFile = "stored_mRMR_KNN.sav"
+		h = open('featuresSelectedKNN.txt', 'r')
 	elif (classifierOption == "SVM"):
 		classifierFile = "stored_mRMR_SVM.sav"
+		h = open('featuresSelectedSVM.txt', 'r')
 	else:
 		classifierFile = "stored_mRMR_SVM.sav"
+		h = open('featuresSelectedSVM.txt', 'r')
+
 	classifier = joblib.load(classifierFile)
 
 	#find data
@@ -37,38 +42,34 @@ def findResult(num):
 	        	fileSizeFlag = 1
 
 	#get file size
-	fileSize = getsize(filename)
+	#fileSize = getsize(filename)
 
 	#openfile
-	f = open(filename, "rb")
+	#f = open(filename, "rb")
 
 	#find what bits to read
-	if (num == 1):
-		startBit = 0
-	elif (num == 2):
-		startBit = int(fileSize * 0.25)
-	else:
-		startBit = int(fileSize * 0.5)
-	lengthToRead = int(fileSize * 0.5)
+	#if (num == 1):
+	#	startBit = 0
+	#elif (num == 2):
+	#	startBit = int(fileSize * 0.25)
+	#else:
+	#	startBit = int(fileSize * 0.5)
+	#lengthToRead = int(fileSize * 0.5)
 
 	#read data starting at specified bit for a certain length
-	f.seek(startBit)
-	rawData = list(f.read(lengthToRead))
-
-	#get spectrogram
-	#get filenames for spectrograms (temporay until actual spectrogram)
-	path = r"../../ECE_Senior_Design_Data/nonFallSpectrograms/0_Walking_towards_radar/"
-	dataFile = r"04000000_1574696114_Raw_0.png"
+	#f.seek(startBit)
+	#rawData = list(f.read(lengthToRead))
 
 	#get features
-	features = eng.dctFromPng(path + dataFile)
+	numFeatures = 500
+	outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
+	features = eng.binToDct(dataPath + filename, outfile, numFeatures)
 
 	#use only the features selected from classifier
 	listofFeatures = []
-	with open('featuresSelected.txt', 'r') as h:
-		content = h.readlines() 
-		for line in content:
-			listofFeatures.append(int(line))
+	content = h.readlines() 
+	for line in content:
+		listofFeatures.append(int(line))
 
 	selectedFeaturesList = [features[0][i] for i in listofFeatures]
 	selectedFeatures = [selectedFeaturesList]
@@ -76,7 +77,7 @@ def findResult(num):
 	#get classification result
 	result = classifier.predict(selectedFeatures)
 
-	f.close()
+	#f.close()
 
 	endTime = perf_counter()
 	print("Total time in secs for fragment {} = {}".format(num, endTime - startTime))

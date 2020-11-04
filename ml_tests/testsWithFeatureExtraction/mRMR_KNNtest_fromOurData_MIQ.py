@@ -11,15 +11,17 @@ import time
 from os import listdir
 from os.path import isfile, join
 from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import classification_report, confusion_matrix
 
 #get filenames for data
 names = ['Grace', 'Marc', 'Pete']
 fallSubdirs = ['fallingSitting', 'fallingStanding', 'fallingWalking']
 nonFallSubdirs = ['Movement', 'Sitting', 'Walking']
 
-#get filenames for data
-path = "../../ECE_Senior_Design_Our_Data"
+#get filenames for DataFrame
+path = "../../../ECE_Senior_Design_Our_Data"
 fallFiles = []
 nonFallFiles = []
 for name in names:
@@ -67,13 +69,9 @@ df.insert(numFeatures, "Classes", results)
 print(df)
 
 #improved feature selection using mRMR
-returned = pymrmr.mRMR(df, "MID", 3)
+returned = pymrmr.mRMR(df, "MIQ", 3)
 returnedInts = [int(i) for i in returned]
-
-#write ints to file that show what features are being used
-with open('featuresSelectedKNN.txt', 'w') as f:
-    for item in returnedInts:
-        f.write("%s\n" % item)
+print(returnedInts)
 
 #get data after feature selected
 dfFeatureSelectedData = df[df.columns[returnedInts]]
@@ -81,10 +79,25 @@ dfFeatureSelectedResults = df[df.columns[numFeatures]]
 print(dfFeatureSelectedData)
 print(dfFeatureSelectedResults)
 
+#Split test and training sets
+allDataTrain, allDataTest, resultTrain, resultTest = train_test_split(dfFeatureSelectedData, dfFeatureSelectedResults, test_size = 0.2)
+
+#scale data
+scaler = StandardScaler()
+scaler.fit(allDataTrain)
+allDataTrain = scaler.transform(allDataTrain)
+allDataTest = scaler.transform(allDataTest)
+
 #training
 classifier = KNeighborsClassifier(n_neighbors=5)
-classifier.fit(dfFeatureSelectedData, dfFeatureSelectedResults)
+classifier.fit(allDataTrain, resultTrain)
 
-#save classifier
-filename = "stored_mRMR_KNN.sav"
-joblib.dump(classifier, filename)
+#Make predictions
+predictions = list(classifier.predict(allDataTest))
+resultTest = list(resultTest)
+
+print(resultTest)
+print(predictions)
+
+#show results
+print(sklearn.metrics.f1_score(resultTest, predictions, average = 'binary'))

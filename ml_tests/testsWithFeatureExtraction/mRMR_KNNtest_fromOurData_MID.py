@@ -20,7 +20,7 @@ names = ['Grace', 'Marc', 'Pete']
 fallSubdirs = ['fallingSitting', 'fallingStanding', 'fallingWalking']
 nonFallSubdirs = ['Movement', 'Sitting', 'Walking']
 
-#get filenames for data
+#get filenames for DataFrame
 path = "../../../ECE_Senior_Design_Our_Data"
 fallFiles = []
 nonFallFiles = []
