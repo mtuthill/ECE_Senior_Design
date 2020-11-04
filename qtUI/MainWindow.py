@@ -2,10 +2,10 @@ import sys
 import os
 
 from PyQt5.QtGui import *
-from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
+#from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtWidgets import QFileDialog, QApplication
 from PyQt5 import uic
-from PyQt5 import QtMultimedia, uic, QtCore
+#from PyQt5 import QtMultimedia, uic, QtCore
 from PyQt5.Qt import QUrl
 
 import classify
@@ -22,17 +22,21 @@ class MainWindow:
         self.ui.spectrogram.setPixmap(QPixmap("media/pete_fallingSitting_toward_1.png"))
 
         #Add test gif to UI
-        gifTest = QMovie("media/person_Falling.gif")
-        self.ui.result.setMovie(gifTest)
-        gifTest.start()
+        #gifTest = QMovie("media/person_Falling.gif")
+        #self.ui.result.setMovie(gifTest)
+        #gifTest.start()
+        # Gif word test #
+        #gifFall = QMovie("media/Non-fall.gif")
+        #self.ui.result.setMovie(gifFall)
+        #gifFall.start()
 
         #Set up MP4
-        self.player = QMediaPlayer()
-        self.player.setVideoOutput(self.ui.wgt_player)
-        self.player.setMedia(QMediaContent(QUrl.fromLocalFile("media/testMP4.mp4")))
-        self.player.play()
-        self.ui.openVideoButton.clicked.connect(self.openVideoFile)
-        self.ui.playButton.clicked.connect(self.play)
+        #self.player = QMediaPlayer()
+        #self.player.setVideoOutput(self.ui.wgt_player)
+        #self.player.setMedia(QMediaContent(QUrl.fromLocalFile("media/testMP4.mp4")))
+        #self.player.play()
+        #self.ui.openVideoButton.clicked.connect(self.openVideoFile)
+        #self.ui.playButton.clicked.connect(self.play)
         self.ui.pauseButton.clicked.connect(self.pause)
         self.ui.stopButton.clicked.connect(self.stop)
 
@@ -54,6 +58,12 @@ class MainWindow:
 
         #Display result
         if(fallNonFallClass == 0):
-            self.ui.result.setText("Non Fall")
+            gifFall = QMovie("media/Non-fall.gif")
+            self.ui.result.setMovie(gifFall)
+            gifFall.start()
+            #self.ui.result.setText("Non Fall")
         else:
-            self.ui.result.setText("Fall")
+            #self.ui.result.setText("Fall")
+            gifNonFall = QMovie("media/Fall_gif.gif")
+            self.ui.result.setMovie(gifNonFall)
+            gifNonFall.start()
