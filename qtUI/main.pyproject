@@ -1,3 +1,3 @@
 {
-    "files": ["ui_mainwindow.py","MainWindow.py","main.py","form.ui","classify.py"]
+    "files": ["MainWindow.py","main.py","ui_mainwindow.py","basicMainNoUI.py","form.ui","classify.py","trainTestAlgorithms.py"]
 }
