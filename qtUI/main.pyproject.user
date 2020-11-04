@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.13.2, 2020-10-21T14:08:14. -->
+<!-- Written by QtCreator 4.13.0, 2020-11-04T16:17:50. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{710f5896-5899-41bf-9e58-3b5226318537}</value>
+  <value type="QByteArray">{4ef622c0-6545-498f-b12d-3e826dbd94bb}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -67,15 +67,13 @@
    <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>
-   <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey">
-    <value type="QString">-fno-delayed-template-parsing</value>
-   </valuelist>
+   <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey"/>
    <value type="bool" key="ClangCodeModel.UseGlobalConfig">true</value>
    <value type="QString" key="ClangCodeModel.WarningConfigId">Builtin.Questionable</value>
    <valuemap type="QVariantMap" key="ClangTools">
     <value type="bool" key="ClangTools.BuildBeforeAnalysis">true</value>
     <value type="QString" key="ClangTools.DiagnosticConfig">Builtin.DefaultTidyAndClazy</value>
-    <value type="int" key="ClangTools.ParallelJobs">6</value>
+    <value type="int" key="ClangTools.ParallelJobs">2</value>
     <valuelist type="QVariantList" key="ClangTools.SelectedDirs"/>
     <valuelist type="QVariantList" key="ClangTools.SelectedFiles"/>
     <valuelist type="QVariantList" key="ClangTools.SuppressedDiagnostics"/>
@@ -227,12 +225,12 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">classify (on Web Browser)</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/classify.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/classify.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">trainTestAlgorithms (on Web Browser)</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/trainTestAlgorithms.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/trainTestAlgorithms.py</value>
     <value type="bool" key="PythonEditor.RunConfiguation.Buffered">false</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\KingT\OneDrive\Documents\Classes\ECE494\ECE_Senior_Design\qtUI\classify.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/trainTestAlgorithms.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -242,7 +240,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.2">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -305,12 +303,12 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">ui_mainwindow (on Web Browser)</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/ui_mainwindow.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/ui_mainwindow.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">main (on Web Browser)</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/main.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/main.py</value>
     <value type="bool" key="PythonEditor.RunConfiguation.Buffered">false</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\KingT\OneDrive\Documents\Classes\ECE494\ECE_Senior_Design\qtUI\ui_mainwindow.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/main.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -320,7 +318,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.3">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -383,12 +381,12 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">main (on Web Browser)</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/main.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/main.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">basicMainNoUI (on Web Browser)</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/basicMainNoUI.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/basicMainNoUI.py</value>
     <value type="bool" key="PythonEditor.RunConfiguation.Buffered">false</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\KingT\OneDrive\Documents\Classes\ECE494\ECE_Senior_Design\qtUI\main.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/basicMainNoUI.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -398,7 +396,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.4">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -461,12 +459,12 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">MainWindow (on Web Browser)</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/MainWindow.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/MainWindow.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">ui_mainwindow (on Web Browser)</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/ui_mainwindow.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/ui_mainwindow.py</value>
     <value type="bool" key="PythonEditor.RunConfiguation.Buffered">false</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\KingT\OneDrive\Documents\Classes\ECE494\ECE_Senior_Design\qtUI\MainWindow.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/ui_mainwindow.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -476,7 +474,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.5">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -539,12 +537,12 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">basicMainNoUI (on Web Browser)</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/basicMainNoUI.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/basicMainNoUI.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">MainWindow (on Web Browser)</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/MainWindow.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/MainWindow.py</value>
     <value type="bool" key="PythonEditor.RunConfiguation.Buffered">false</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\KingT\OneDrive\Documents\Classes\ECE494\ECE_Senior_Design\qtUI\basicMainNoUI.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/MainWindow.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -554,7 +552,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.6">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -617,12 +615,12 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">trainTestAlgorithms (on Web Browser)</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/trainTestAlgorithms.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI/trainTestAlgorithms.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">classify (on Web Browser)</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/classify.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/classify.py</value>
     <value type="bool" key="PythonEditor.RunConfiguation.Buffered">false</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter"></value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\KingT\OneDrive\Documents\Classes\ECE494\ECE_Senior_Design\qtUI\trainTestAlgorithms.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/Users/PeteWilson/Desktop/ECE_Senior_Design/qtUI/classify.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -632,7 +630,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/KingT/OneDrive/Documents/Classes/ECE494/ECE_Senior_Design/qtUI</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">7</value>
   </valuemap>

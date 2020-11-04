@@ -1,11 +1,11 @@
 import sys
 import os
-import matlab.engine
+#import matlab.engine
 
 from PyQt5 import QtWidgets
 from MainWindow import MainWindow
 from ui_mainwindow import Ui_MainWindow
-from multiprocessing import Process, Pool, Queue
+#from multiprocessing import Process, Pool, Queue
 from time import sleep
 from os import listdir
 from os.path import isfile, join
