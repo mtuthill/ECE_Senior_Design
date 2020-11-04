@@ -7,7 +7,7 @@ Navigate to the "qtUI" directory and then  run "python3 main.py" which should ru
 Install packages missing using pip3 <br/>
 
 </br>
-To go from from.ui to .py: make sure pyside2 installed("pip install pyside2") then "pyside2-uic form.ui > ui_mainwindow.py"
+To go from form.ui to .py: make sure pyside2 installed("pip install pyside2") then "pyside2-uic form.ui > ui_mainwindow.py"
 
 <br/>
 <br/>
