@@ -21,38 +21,6 @@ class MainWindow:
         #Add spectrogram to UI
         self.ui.spectrogram.setPixmap(QPixmap("media/pete_fallingSitting_toward_1.png"))
 
-        #Add test gif to UI
-        #gifTest = QMovie("media/person_Falling.gif")
-        #self.ui.result.setMovie(gifTest)
-        #gifTest.start()
-        # Gif word test #
-        #gifFall = QMovie("media/Non-fall.gif")
-        #self.ui.result.setMovie(gifFall)
-        #gifFall.start()
-
-        #Set up MP4
-        #self.player = QMediaPlayer()
-        #self.player.setVideoOutput(self.ui.wgt_player)
-        #self.player.setMedia(QMediaContent(QUrl.fromLocalFile("media/testMP4.mp4")))
-        #self.player.play()
-        #self.ui.openVideoButton.clicked.connect(self.openVideoFile)
-        #self.ui.playButton.clicked.connect(self.play)
-        self.ui.pauseButton.clicked.connect(self.pause)
-        self.ui.stopButton.clicked.connect(self.stop)
-
-    def openVideoFile(self):
-        self.player.setMedia(QMediaContent(QFileDialog.getOpenFileUrl()[0]))
-        self.player.play()
-
-    def play(self):
-        self.player.play()
-
-    def pause(self):
-        self.player.pause()
-
-    def stop(self):
-        self.player.stop()
-
     def classifyButtonClicked(self):
         fallNonFallClass = classify.classify(self.ui.algorithmDropDown.currentText())
 
@@ -61,9 +29,8 @@ class MainWindow:
             gifFall = QMovie("media/Non-fall.gif")
             self.ui.result.setMovie(gifFall)
             gifFall.start()
-            #self.ui.result.setText("Non Fall")
+
         else:
-            #self.ui.result.setText("Fall")
             gifNonFall = QMovie("media/Fall_gif.gif")
             self.ui.result.setMovie(gifNonFall)
             gifNonFall.start()
