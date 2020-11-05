@@ -1,9 +1,9 @@
-function [c] = binToDct(fnameIn, fnameout, numFeatures)
+function [c] = binToDct(fnameIn, fnameout, numFeatures, sliceNum)
 %spec code
-microDoppler_AWR1642_bulk_BPM(fnameIn, fnameout);
+microDoppler_AWR1642_bulk_BPM(fnameIn, fnameout, sliceNum);
 
 %DCT code
-I = imread(fnameout);
+I = imread(".png");
 I = rgb2gray(I);
 I = im2double(I);
 
