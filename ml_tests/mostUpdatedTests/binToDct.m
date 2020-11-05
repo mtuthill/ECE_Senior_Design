@@ -12,7 +12,15 @@ T = dct(I);
 %get the coefficients after zig zagging
 postZigZag = zigzag(T);
 
-c = postZigZag(1:numFeatures);
+%envelope features (possibly)
+test = im2double(imresize(rgb2gray(imread(".png")),[65 65]));
+ncol = size(test, 2);
+for k=1:ncol
+    test(:,k) = rescale(test(:,k), 1, 256);
+end
+envFeatures = env_feat_func(test);
+
+c = [postZigZag(1:numFeatures) envFeatures];
 delete(fnameout);
 
 end
