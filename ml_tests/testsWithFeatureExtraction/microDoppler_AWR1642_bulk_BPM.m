@@ -1,10 +1,17 @@
-function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
+function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut, sliceNum)
     % read .bin file
     fid = fopen(fname,'r');
     % DCA1000 should read in two's complement data
     Data = fread(fid, 'int16');
     A = zeros(39321600, 1);
     Data(end+1:numel(A))=0;
+    if sliceNum == 1
+        Data = Data(1:(numel(A) / 2));
+    elseif sliceNum == 2
+        Data = Data((numel(A) / 4):(3*(numel(A) / 4)));
+    else
+        Data = Data((numel(A) / 2):numel(A));
+    end
     fclose(fid);
     %% Parameters
     fileSize = size(Data, 1);
@@ -21,7 +28,7 @@ function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
     numLanes = 2; % do not change. number of lanes is always 4 even if only 1 lane is used. unused lanes
     % NoF = fileSize/2/NPpF/numRX/NTS; % Number of frames
     numChirps = ceil(fileSize/2/NTS/numRX);
-    NoF = round(numChirps/NPpF); % Number of frames, 4 channels, I&Q channels (2)
+    NoF = round(numChirps/NPpF/2); % Number of frames, 4 channels, I&Q channels (2), divide by 2 because 2 slices
     %NoF = 150;
     Np = numChirps;%floor(size(Data(:,1),1)/NTS); % #of pulses
     dT = SweepTime/NPpF; % 

@@ -58,7 +58,6 @@ allData = nonFallData + fallData
 #make classification list
 results = [0] * len(nonFallData) + [1] * len(fallData)
 
-#feature selection (keep 3 of 10 features)
 #prepare data for feature selection
 numpyArrayofArrays = numpy.array([numpy.array(xi) for xi in allData])
 colNames = []

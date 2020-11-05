@@ -95,6 +95,7 @@ for i in range(numFeatures):
 df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colNames)
 df.insert(numFeatures, "Classes", results)
 print(df)
+df.to_csv(r'dataFrameAllClass.csv', index = False, header = True)
 
 #improved feature selection using mRMR
 returned = pymrmr.mRMR(df, "MID", 3)
