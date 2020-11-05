@@ -34,8 +34,11 @@ class MainWindow:
             gifFall = QMovie("media/Non-fall.gif")
             self.ui.result.setMovie(gifFall)
             gifFall.start()
+            # changing the background color to yellow
+            self.ui.setStyleSheet("background-color: green;")
 
         else:
             gifNonFall = QMovie("media/Fall_gif.gif")
             self.ui.result.setMovie(gifNonFall)
             gifNonFall.start()
+            self.ui.setStyleSheet("background-color: red;")
