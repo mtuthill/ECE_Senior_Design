@@ -1,20 +1,13 @@
-function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut, sliceNum)
+function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
     % read .bin file
     fid = fopen(fname,'r');
     % DCA1000 should read in two's complement data
-    inData = fread(fid, 'int16');
+    Data = fread(fid, 'int16');
     A = zeros(39321600, 1);
-    inData(end+1:numel(A))=0;
-    if sliceNum == 1
-        Data = inData(1:(numel(A) / 2));
-    elseif sliceNum == 2
-        Data = inData((numel(A) / 4):(3*(numel(A) / 4)));
-    else
-        Data = inData((numel(A) / 2):numel(A));
-    end
+    Data(end+1:numel(A))=0;
     fclose(fid);
     %% Parameters
-    fileSize = 19660800;
+    fileSize = size(Data, 1);
 
     numADCBits = 16; % number of ADC bits per sample
     SweepTime = 40e-3; % Time for 1 frame
@@ -24,11 +17,11 @@ function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut, sliceNum)
     NoC = 128;%128; % Number of chirp loops
     NPpF = numTX*NoC; % Number of pulses per frame
     numRX = 4;
-    
+
     numLanes = 2; % do not change. number of lanes is always 4 even if only 1 lane is used. unused lanes
     % NoF = fileSize/2/NPpF/numRX/NTS; % Number of frames
     numChirps = ceil(fileSize/2/NTS/numRX);
-    NoF = round(numChirps/NPpF/2); % Number of frames, 4 channels, I&Q channels (2), divide by 2 because 2 slices
+    NoF = round(numChirps/NPpF); % Number of frames, 4 channels, I&Q channels (2)
     %NoF = 150;
     Np = numChirps;%floor(size(Data(:,1),1)/NTS); % #of pulses
     dT = SweepTime/NPpF; % 
@@ -57,10 +50,10 @@ function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut, sliceNum)
         %read in file: 2I is followed by Q
     end
 
-    %% Data format in swra581b.pdf 
-    LVDS(1:2:end) = Data(1:4:end-1) + sqrt(-1)*Data(3:4:end);
+    %% Data format in swra581b.pdf
+    LVDS(1:2:end) = Data(1:4:end) + sqrt(-1)*Data(3:4:end);
     LVDS(2:2:end) = Data(2:4:end) + sqrt(-1)*Data(4:4:end);
-    
+
     % check array size (if any frames were dropped, pad zeros)
     if length(LVDS) ~= numADCSamples*numRX*numChirps
        numpad =  numADCSamples*numRX*numChirps - length(LVDS); % num of zeros to be padded
@@ -136,4 +129,3 @@ function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut, sliceNum)
     frame = frame2im(getframe(gca));
     imwrite(frame,[fOut(1:end-4) '.png']);
     close all
-end
