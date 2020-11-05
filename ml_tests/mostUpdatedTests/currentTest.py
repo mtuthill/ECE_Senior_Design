@@ -21,7 +21,6 @@ numFeatures = 17
 df = pandas.read_csv('dataFrameWithEnvFeat.csv')
 returned = pymrmr.mRMR(df, "MIQ", 3)
 returnedInts = [int(i) for i in returned]
-print(returnedInts)
 
 #get data after feature selected
 dfFeatureSelectedData = df[df.columns[returnedInts]]
