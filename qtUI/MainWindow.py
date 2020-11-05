@@ -21,42 +21,11 @@ class MainWindow:
         #Add spectrogram to UI
         self.ui.spectrogram.setPixmap(QPixmap("media/pete_fallingSitting_toward_1.png"))
 
-<<<<<<< Updated upstream
-=======
-        #Add test gif to UI
-        #gifTest = QMovie("media/person_Falling.gif")
-        #self.ui.result.setMovie(gifTest)
-        #gifTest.start()
-
         # Gif word test #
         gifResults = QMovie("media/resultsgif.gif")
         self.ui.result.setMovie(gifResults)
         gifResults.start()
 
-        #Set up MP4
-        #self.player = QMediaPlayer()
-        #self.player.setVideoOutput(self.ui.wgt_player)
-        #self.player.setMedia(QMediaContent(QUrl.fromLocalFile("media/testMP4.mp4")))
-        #self.player.play()
-        #self.ui.openVideoButton.clicked.connect(self.openVideoFile)
-        #self.ui.playButton.clicked.connect(self.play)
-        self.ui.pauseButton.clicked.connect(self.pause)
-        self.ui.stopButton.clicked.connect(self.stop)
-
-    def openVideoFile(self):
-        self.player.setMedia(QMediaContent(QFileDialog.getOpenFileUrl()[0]))
-        self.player.play()
-
-    def play(self):
-        self.player.play()
-
-    def pause(self):
-        self.player.pause()
-
-    def stop(self):
-        self.player.stop()
-
->>>>>>> Stashed changes
     def classifyButtonClicked(self):
         fallNonFallClass = classify.classify(self.ui.algorithmDropDown.currentText())
 
@@ -65,8 +34,11 @@ class MainWindow:
             gifFall = QMovie("media/Non-fall.gif")
             self.ui.result.setMovie(gifFall)
             gifFall.start()
+            # changing the background color to yellow
+            self.ui.setStyleSheet("background-color: green;")
 
         else:
             gifNonFall = QMovie("media/Fall_gif.gif")
             self.ui.result.setMovie(gifNonFall)
             gifNonFall.start()
+            self.ui.setStyleSheet("background-color: red;")
