@@ -21,7 +21,6 @@ end
 envFeatures = env_feat_func(test);
 
 c = [postZigZag(1:numFeatures) envFeatures]
-delete(fnameout);
 end
 
 % Zigzag scan of a matrix

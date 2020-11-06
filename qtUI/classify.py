@@ -29,7 +29,7 @@ def classify(type, file):
 
     h = open('featuresSelected.txt', 'r')
     numDCTFeatures = 10
-    outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
+    outfile = 'out_spectrogram.png'
     features = eng.binToDct(file, outfile, numDCTFeatures)
 
     #use only the features selected from classifier

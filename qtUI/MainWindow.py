@@ -20,10 +20,6 @@ class MainWindow:
         self.ui.classifyButton.clicked.connect(self.classifyButtonClicked)
 
         #Add spectrogram to UI
-        #self.ui.spectrogram.setText(QPixmap("media/pete_fallingSitting_toward_1.png"))
-        #spectrogramGif = QMovie("media/spectrogramGif.gif")
-        #self.ui.spectrogram.setMovie(spectrogramGif)
-        #spectrogramGif.start()
         self.ui.spectrogram.setText("Spectrogram awaiting")
 
         # Gif word test #
@@ -33,6 +29,8 @@ class MainWindow:
 
     def classifyButtonClicked(self):
         fallNonFallClass = classify.classify(self.ui.algorithmDropDown.currentText(), self.file)
+        outfile = 'out_spectrogram.png'
+        self.ui.spectrogram.setPixmap(QPixmap("out_spectrogram.png"))
 
         #Display result
         if(fallNonFallClass == 0):
@@ -46,3 +44,5 @@ class MainWindow:
             self.ui.result.setMovie(gifNonFall)
             gifNonFall.start()
             self.ui.setStyleSheet("background-color: red;")
+
+
