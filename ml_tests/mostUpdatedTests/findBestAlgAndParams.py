@@ -16,17 +16,17 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report, confusion_matrix
 
-numFeatures = 1000
+numFeatures = 17
 
 #get data from csv
-df = pandas.read_csv('dataFrame.csv')
+df = pandas.read_csv('dataFrameWithEnvFeat.csv')
 
-numFeaturesSelect = [7, 8, 9, 10, 11, 12]
+numFeaturesSelect = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 for j in numFeaturesSelect:
 	totalF1SVMMIQ = 0
 	for i in range(100):
 		#improved feature selection using mRMR
-		returned = pymrmr.mRMR(df, "MIQ", numFeaturesSelect[j-7])
+		returned = pymrmr.mRMR(df, "MIQ", numFeaturesSelect[j-1])
 		returnedInts = [int(i) for i in returned]
 
 		#get data after feature selected
@@ -47,13 +47,13 @@ for j in numFeaturesSelect:
 		#show results
 		totalF1SVMMIQ = totalF1SVMMIQ + sklearn.metrics.f1_score(resultTest, predictions, average = 'binary')
 
-	f = open("results.txt", "a")
-	f.write("SVM - MIQ - " + str(numFeaturesSelect[j-7]) + " - " + str(totalF1SVMMIQ / 100) + '\n')
+	f = open("resultsEnv.txt", "a")
+	f.write("SVM - MIQ - " + str(numFeaturesSelect[j-1]) + " - " + str(totalF1SVMMIQ / 100) + '\n')
 	f.close()
 	totalF1MIDSVM = 0
 	for i in range(100):
 		#improved feature selection using mRMR
-		returned = pymrmr.mRMR(df, "MID", numFeaturesSelect[j-7])
+		returned = pymrmr.mRMR(df, "MID", numFeaturesSelect[j-1])
 		returnedInts = [int(i) for i in returned]
 
 		#get data after feature selected
@@ -73,13 +73,13 @@ for j in numFeaturesSelect:
 
 		#show results
 		totalF1MIDSVM = totalF1MIDSVM + sklearn.metrics.f1_score(resultTest, predictions, average = 'binary')
-	f = open("results.txt", "a")
-	f.write("SVM - MID - " + str(numFeaturesSelect[j-7]) + " - " + str(totalF1MIDSVM / 100) + '\n')
+	f = open("resultsEnv.txt", "a")
+	f.write("SVM - MID - " + str(numFeaturesSelect[j-1]) + " - " + str(totalF1MIDSVM / 100) + '\n')
 	totalF1KNNMIQ = 0
 	f.close()
 	for i in range(100):
 		#improved feature selection using mRMR
-		returned = pymrmr.mRMR(df, "MIQ", numFeaturesSelect[j-7])
+		returned = pymrmr.mRMR(df, "MIQ", numFeaturesSelect[j-1])
 		returnedInts = [int(i) for i in returned]
 
 		#get data after feature selected
@@ -105,13 +105,13 @@ for j in numFeaturesSelect:
 
 		#show results
 		totalF1KNNMIQ = totalF1KNNMIQ + sklearn.metrics.f1_score(resultTest, predictions, average = 'binary')
-	f = open("results.txt", "a")
-	f.write("KNN - MIQ - " + str(numFeaturesSelect[j-7]) + " - " + str(totalF1KNNMIQ / 100) + '\n')
+	f = open("resultsEnv.txt", "a")
+	f.write("KNN - MIQ - " + str(numFeaturesSelect[j-1]) + " - " + str(totalF1KNNMIQ / 100) + '\n')
 	f.close()
 	totalF1KNNMID = 0
 	for i in range(100):
 		#improved feature selection using mRMR
-		returned = pymrmr.mRMR(df, "MID", numFeaturesSelect[j-7])
+		returned = pymrmr.mRMR(df, "MID", numFeaturesSelect[j-1])
 		returnedInts = [int(i) for i in returned]
 
 		#get data after feature selected
@@ -138,6 +138,6 @@ for j in numFeaturesSelect:
 		#show results
 		totalF1KNNMID = totalF1KNNMID + sklearn.metrics.f1_score(resultTest, predictions, average = 'binary')
 
-	f = open("results.txt", "a")
-	f.write("KNN - MID - " + str(numFeaturesSelect[j-7]) + " - " + str(totalF1KNNMID / 100) + '\n')
+	f = open("resultsEnv.txt", "a")
+	f.write("KNN - MID - " + str(numFeaturesSelect[j-1]) + " - " + str(totalF1KNNMID / 100) + '\n')
 	f.close()
