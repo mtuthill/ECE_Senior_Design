@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(1087, 522)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -49,10 +49,10 @@ class Ui_MainWindow(object):
 
         self.spectrogramLayout.addItem(self.horizontalSpacer, 1, 0, 1, 1)
 
-        self.btn_select = QPushButton(self.centralwidget)
-        self.btn_select.setObjectName(u"btn_select")
+        self.changeEventButton = QPushButton(self.centralwidget)
+        self.changeEventButton.setObjectName(u"changeEventButton")
 
-        self.spectrogramLayout.addWidget(self.btn_select, 0, 0, 1, 1)
+        self.spectrogramLayout.addWidget(self.changeEventButton, 0, 0, 1, 1)
 
         self.videoGifLabel = QLabel(self.centralwidget)
         self.videoGifLabel.setObjectName(u"videoGifLabel")
@@ -71,37 +71,56 @@ class Ui_MainWindow(object):
 
         self.buttonAlgLayout = QGridLayout()
         self.buttonAlgLayout.setObjectName(u"buttonAlgLayout")
+        self.horizontalSpacer_4 = QSpacerItem(168, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.buttonAlgLayout.addItem(self.horizontalSpacer_4, 1, 0, 2, 1)
+
         self.horizontalSpacer_3 = QSpacerItem(188, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.buttonAlgLayout.addItem(self.horizontalSpacer_3, 1, 4, 2, 1)
-
-        self.algorithmLabel = QLabel(self.centralwidget)
-        self.algorithmLabel.setObjectName(u"algorithmLabel")
-
-        self.buttonAlgLayout.addWidget(self.algorithmLabel, 1, 1, 1, 1, Qt.AlignBottom)
 
         self.algorithmDropDown = QComboBox(self.centralwidget)
         self.algorithmDropDown.addItem("")
         self.algorithmDropDown.addItem("")
         self.algorithmDropDown.setObjectName(u"algorithmDropDown")
 
-        self.buttonAlgLayout.addWidget(self.algorithmDropDown, 2, 1, 1, 2)
+        self.buttonAlgLayout.addWidget(self.algorithmDropDown, 2, 1, 1, 1)
 
-        self.horizontalSpacer_4 = QSpacerItem(168, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.verticalSpacer_2 = QSpacerItem(20, 28, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.buttonAlgLayout.addItem(self.horizontalSpacer_4, 1, 0, 2, 1)
+        self.buttonAlgLayout.addItem(self.verticalSpacer_2, 0, 1, 1, 1)
+
+        self.algorithmLabel = QLabel(self.centralwidget)
+        self.algorithmLabel.setObjectName(u"algorithmLabel")
+        self.algorithmLabel.setAlignment(Qt.AlignCenter)
+
+        self.buttonAlgLayout.addWidget(self.algorithmLabel, 1, 1, 1, 1)
+
+        self.binaryAllClassLabel = QLabel(self.centralwidget)
+        self.binaryAllClassLabel.setObjectName(u"binaryAllClassLabel")
+
+        self.buttonAlgLayout.addWidget(self.binaryAllClassLabel, 1, 2, 1, 1, Qt.AlignHCenter)
+
+        self.numClassCBox = QComboBox(self.centralwidget)
+        self.numClassCBox.addItem("")
+        self.numClassCBox.addItem("")
+        self.numClassCBox.setObjectName(u"numClassCBox")
+
+        self.buttonAlgLayout.addWidget(self.numClassCBox, 2, 2, 1, 1)
 
         self.classifyButton = QPushButton(self.centralwidget)
         self.classifyButton.setObjectName(u"classifyButton")
 
         self.buttonAlgLayout.addWidget(self.classifyButton, 2, 3, 1, 1)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 28, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.buttonAlgLayout.addItem(self.verticalSpacer_2, 0, 2, 1, 1)
-
         self.buttonAlgLayout.setRowStretch(0, 1)
-        self.buttonAlgLayout.setColumnStretch(0, 1)
+        self.buttonAlgLayout.setRowStretch(1, 1)
+        self.buttonAlgLayout.setRowStretch(2, 1)
+        self.buttonAlgLayout.setColumnStretch(0, 6)
+        self.buttonAlgLayout.setColumnStretch(1, 2)
+        self.buttonAlgLayout.setColumnStretch(2, 2)
+        self.buttonAlgLayout.setColumnStretch(3, 1)
+        self.buttonAlgLayout.setColumnStretch(4, 6)
 
         self.verticalLayout.addLayout(self.buttonAlgLayout)
 
@@ -127,7 +146,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.result.sizePolicy().hasHeightForWidth())
         self.result.setSizePolicy(sizePolicy)
 
-        self.resultLayout.addWidget(self.result, 1, 1, 1, 1)
+        self.resultLayout.addWidget(self.result, 1, 1, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
 
         self.resultLayout.setRowStretch(0, 1)
         self.resultLayout.setRowStretch(1, 6)
@@ -138,7 +157,6 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.resultLayout)
 
         self.verticalLayout.setStretch(0, 5)
-        self.verticalLayout.setStretch(1, 2)
         self.verticalLayout.setStretch(2, 2)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -150,12 +168,17 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.spectrogram.setText("")
-        self.btn_select.setText(QCoreApplication.translate("MainWindow", u"Change Event", None))
+        self.changeEventButton.setText(QCoreApplication.translate("MainWindow", u"Change Event", None))
         self.videoGifLabel.setText("")
-        self.algorithmLabel.setText(QCoreApplication.translate("MainWindow", u"Classification Algorithm", None))
         self.algorithmDropDown.setItemText(0, QCoreApplication.translate("MainWindow", u"Support Vector Machine", None))
         self.algorithmDropDown.setItemText(1, QCoreApplication.translate("MainWindow", u"K Nearest Neighbor", None))
+
+        self.algorithmLabel.setText(QCoreApplication.translate("MainWindow", u"Classification Algorithm", None))
+        self.binaryAllClassLabel.setText(QCoreApplication.translate("MainWindow", u"Binay/All Class", None))
+        self.numClassCBox.setItemText(0, QCoreApplication.translate("MainWindow", u"Binary", None))
+        self.numClassCBox.setItemText(1, QCoreApplication.translate("MainWindow", u"All Class", None))
 
         self.classifyButton.setText(QCoreApplication.translate("MainWindow", u"Classify", None))
         self.result.setText("")
     # retranslateUi
+

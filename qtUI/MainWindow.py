@@ -16,8 +16,9 @@ class MainWindow:
         #Set up
         self.ui = uic.loadUi('form.ui')
 
-        #connect button click to slot for classifyButtonClicked
+        #connect buttons
         self.ui.classifyButton.clicked.connect(self.classifyButtonClicked)
+        self.ui.changeEventButton.clicked.connect(self.changeEventButtonClicked)
 
         #Add spectrogram to UI
         self.ui.spectrogram.setText("Spectrogram awaiting")
@@ -44,5 +45,10 @@ class MainWindow:
             self.ui.result.setMovie(gifNonFall)
             gifNonFall.start()
             self.ui.setStyleSheet("background-color: red;")
+
+    def changeEventButtonClicked(self):
+        #open finder and change file. Must be in same directory
+        inputFile = QFileDialog.getOpenFileUrl()[0]
+        file = inputFile.fileName()
 
 

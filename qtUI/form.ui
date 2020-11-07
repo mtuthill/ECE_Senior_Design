@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1087</width>
+    <height>522</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="5,2,2">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="5,0,2">
     <item>
      <layout class="QGridLayout" name="spectrogramLayout" rowstretch="1,6" columnstretch="1,6,1,6,1">
       <item row="1" column="4">
@@ -90,7 +90,7 @@
        </spacer>
       </item>
       <item row="0" column="0">
-       <widget class="QPushButton" name="openVideoButton">
+       <widget class="QPushButton" name="changeEventButton">
         <property name="text">
          <string>Change Event</string>
         </property>
@@ -106,41 +106,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QGridLayout" name="buttonAlgLayout" rowstretch="1,0,0" columnstretch="1,0,0,0,0">
-      <item row="1" column="4" rowspan="2">
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>188</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="1" alignment="Qt::AlignBottom">
-       <widget class="QLabel" name="algorithmLabel">
-        <property name="text">
-         <string>Classification Algorithm</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="2">
-       <widget class="QComboBox" name="algorithmDropDown">
-        <item>
-         <property name="text">
-          <string>Support Vector Machine</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>K Nearest Neighbor</string>
-         </property>
-        </item>
-       </widget>
-      </item>
+     <layout class="QGridLayout" name="buttonAlgLayout" rowstretch="1,1,1" columnstretch="6,2,2,1,6">
       <item row="1" column="0" rowspan="2">
        <spacer name="horizontalSpacer_4">
         <property name="orientation">
@@ -154,14 +120,34 @@
         </property>
        </spacer>
       </item>
-      <item row="2" column="3">
-       <widget class="QPushButton" name="classifyButton">
-        <property name="text">
-         <string>Classify</string>
+      <item row="1" column="4" rowspan="2">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>188</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="algorithmDropDown">
+        <item>
+         <property name="text">
+          <string>Support Vector Machine</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>K Nearest Neighbor</string>
+         </property>
+        </item>
        </widget>
       </item>
-      <item row="0" column="2">
+      <item row="0" column="1">
        <spacer name="verticalSpacer_2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -173,6 +159,44 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="algorithmLabel">
+        <property name="text">
+         <string>Classification Algorithm</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="binaryAllClassLabel">
+        <property name="text">
+         <string>Binay/All Class</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QComboBox" name="numClassCBox">
+        <item>
+         <property name="text">
+          <string>Binary</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>All Class</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QPushButton" name="classifyButton">
+        <property name="text">
+         <string>Classify</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -217,7 +241,7 @@
         </property>
        </spacer>
       </item>
-      <item row="1" column="1">
+      <item row="1" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
        <widget class="QLabel" name="result">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
