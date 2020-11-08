@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout" stretch="5,0,2">
     <item>
-     <layout class="QGridLayout" name="spectrogramLayout" rowstretch="1,6" columnstretch="1,6,1,6,1">
+     <layout class="QGridLayout" name="spectrogramLayout" rowstretch="1,6" columnstretch="1,5,1,5,1">
       <item row="1" column="4">
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
@@ -30,23 +30,13 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="1">
-       <spacer name="verticalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="1" column="3">
        <widget class="QLabel" name="spectrogram">
         <property name="text">
          <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -59,19 +49,6 @@
          <size>
           <width>40</width>
           <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="3">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>18</height>
          </size>
         </property>
        </spacer>
@@ -89,17 +66,52 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="0">
-       <widget class="QPushButton" name="changeEventButton">
-        <property name="text">
-         <string>Change Event</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="1">
        <widget class="QLabel" name="videoGifLabel">
         <property name="text">
          <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <spacer name="verticalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+       <widget class="QPushButton" name="changeVideoButton">
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Change Video</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+       <widget class="QPushButton" name="changeEventButton">
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Change Event</string>
         </property>
        </widget>
       </item>
@@ -173,7 +185,7 @@
       <item row="1" column="2" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="binaryAllClassLabel">
         <property name="text">
-         <string>Binay/All Class</string>
+         <string>Binary/All Class</string>
         </property>
        </widget>
       </item>
