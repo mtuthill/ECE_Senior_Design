@@ -1,4 +1,4 @@
-function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
+    function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
 % read .bin file
     fid = fopen(fname,'r');
     % DCA1000 should read in two's complement data
@@ -110,7 +110,7 @@ function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
     %% Spectrogram
     timeAxis = [1:NPpF*NoF]*SweepTime/NPpF ; % Time
     freqAxis = linspace(-prf/2,prf/2,nfft); % Frequency Axis
-    fig = figure('visible','on');
+    fig = figure('visible','off');
     colormap(jet(256));
     set(gca,'units','normalized','outerposition',[0,0,1,1]);
     doppSignMTI = imagesc(timeAxis,[-prf/2 prf/2],20*log10(abs(sx2/max(sx2(:)))));
