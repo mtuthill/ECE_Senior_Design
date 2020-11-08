@@ -13,7 +13,7 @@ from sklearn.svm import SVC
 
 numFeatures = 17
 
-df = pandas.read_csv('dataFrameWithEnvFeat.csv')
+df = pandas.read_csv('dataFrameWithEnvFeat_updatedSpec.csv')
 returned = pymrmr.mRMR(df, "MIQ", 7)
 returnedInts = [int(i) for i in returned]
 

@@ -19,7 +19,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 numFeatures = 17
 
 #get data from csv
-df = pandas.read_csv('dataFrameWithEnvFeat.csv')
+df = pandas.read_csv('dataFrameWithEnvFeat_updatedSpec.csv')
 
 numFeaturesSelect = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 for j in numFeaturesSelect:
@@ -105,7 +105,7 @@ for j in numFeaturesSelect:
 
 		#show results
 		totalF1KNNMIQ = totalF1KNNMIQ + sklearn.metrics.f1_score(resultTest, predictions, average = 'binary')
-	f = open("resultsEnv.txt", "a")
+	f = open("resultsEnv_updated.txt", "a")
 	f.write("KNN - MIQ - " + str(numFeaturesSelect[j-1]) + " - " + str(totalF1KNNMIQ / 100) + '\n')
 	f.close()
 	totalF1KNNMID = 0

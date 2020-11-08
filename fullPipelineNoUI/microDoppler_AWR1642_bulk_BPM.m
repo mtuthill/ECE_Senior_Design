@@ -1,5 +1,5 @@
 function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
-    % read .bin file
+% read .bin file
     fid = fopen(fname,'r');
     % DCA1000 should read in two's complement data
     Data = fread(fid, 'int16');
@@ -22,11 +22,11 @@ function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
     % NoF = fileSize/2/NPpF/numRX/NTS; % Number of frames
     numChirps = ceil(fileSize/2/NTS/numRX);
     NoF = round(numChirps/NPpF); % Number of frames, 4 channels, I&Q channels (2)
-    %NoF = 150;
     Np = numChirps;%floor(size(Data(:,1),1)/NTS); % #of pulses
     dT = SweepTime/NPpF; % 
     prf = 1/dT; %
     isReal = 0; % set to 1 if real only data, 0 if complex dataare populated with 0 %% read file and convert to signed number
+
     %% Data reshape
     % if 12 or 14 bits ADC per sample compensate for sign extension
     if numADCBits ~= 16
@@ -84,25 +84,25 @@ function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
     rp = fft(rawData);
     clear Data
      %% MTI Filter (not working)
-    %[m,n]=size(rp(:,:,1));
-%     ns = size(rp,2)+4;
-   % h=[1 -2 3 -2 1]';
-   % ns = size(rp,2)+length(h)-1;
-   % rngpro=zeros(m,ns);
-   % for k=1:m
-    %    rngpro(k,:)=conv(h,rp(k,:,1));
-    %end
-    %% MTI v2
-     [b,a]=butter(1, 0.01, 'high'); %  4th order is 24dB/octave slope, 6dB/octave per order of n
-% %                                      [B,A] = butter(N,Wn, 'high') where N filter order, b (numerator), a (denominator), ...
-% %                                      highpass, Wn is cutoff freq (half the sample rate)
-     [m,n]=size(rp(:,:,1));
-     rngpro=zeros(m,n);
-     for k=1:size(rp,1)
-         rngpro(k,:)=filter(b,a,rp(k,:,1));
-     end
+%     [m,n]=size(rp(:,:,1));
+% %     ns = size(rp,2)+4;
+%     h=[1 -2 3 -2 1]';
+%     ns = size(rp,2)+length(h)-1;
+%     rngpro=zeros(m,ns);
+%     for k=1:m
+%         rngpro(k,:)=conv(h,rp(k,:,1));
+%     end
+    %% MTI v2 - that does the thresholding! nice.
+    [b,a]=butter(1, 0.01, 'high'); %  4th order is 24dB/octave slope, 6dB/octave per order of n
+%                                      [B,A] = butter(N,Wn, 'high') where N filter order, b (numerator), a (denominator), ...
+%                                      highpass, Wn is cutoff freq (half the sample rate)
+    [m,n]=size(rp(:,:,1));
+    rngpro=zeros(m,n);
+    for k=1:size(rp,1)
+        rngpro(k,:)=filter(b,a,rp(k,:,1));
+    end
     %% STFT
-    rBin = 26:35; %covid 18:30, front ingore= 7:nts/2, %lab 15:31 for front
+    rBin = 15:35; %covid 18:30, front ingore= 7:nts/2, %lab 15:31 for front
     nfft = 2^12;window = 256;noverlap = 200;shift = window - noverlap;
 %      sx = myspecgramnew(rngpro(rBin,:),window,nfft,shift);
      sx = myspecgramnew(sum(rngpro(rBin,:)),window,nfft,shift); % mti filter and IQ correction
@@ -120,11 +120,11 @@ function [] = microDoppler_AWR1642_bulk_BPM(fname, fOut)
 %     title(fOut(end-22:end-4))
 %     xlabel('Time (sec)');
 %     ylabel('Frequency (Hz)');
-    caxis([-50 0]) % 40
+    caxis([-40 0]) % 40
     set(gca, 'YDir','normal')
 %     colorbar;
     axis([0 timeAxis(end) -prf/6 prf/6])
-    %saveas(fig,[fOut(1:end-4) '.fig']);
+    saveas(fig,[fOut(1:end-4) '.fig']);
     set(gca,'xtick',[],'ytick',[])
     frame = frame2im(getframe(gca));
     imwrite(frame,[fOut(1:end-4) '.png']);

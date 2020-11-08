@@ -19,39 +19,36 @@ from sklearn.metrics import classification_report, confusion_matrix
 numFeatures = 17
 
 df = pandas.read_csv('dataFrameWithEnvFeat.csv')
-returned = pymrmr.mRMR(df, "MIQ", 7)
-returnedInts = [int(i) for i in returned]
 
-#get data after feature selected
-dfFeatureSelectedData = df[df.columns[returnedInts]]
-dfFeatureSelectedResults = df[df.columns[numFeatures]]
+numFeaturesToSel = [1,2,3,4,5,6,7]
 
-#Split test and training sets
-allDataTrain, allDataTest, resultTrain, resultTest = train_test_split(dfFeatureSelectedData, dfFeatureSelectedResults, test_size = 0.2)
+for j in numFeaturesToSel:
+	returned = pymrmr.mRMR(df, "MIQ", numFeaturesToSel[j-1])
+	returnedInts = [int(i) for i in returned]
 
-#scale data
-#scaler = StandardScaler()
-#scaler.fit(allDataTrain)
-#allDataTrain = scaler.transform(allDataTrain)
-#allDataTest = scaler.transform(allDataTest)
+	#get data after feature selected
+	dfFeatureSelectedData = df[df.columns[returnedInts]]
+	dfFeatureSelectedResults = df[df.columns[numFeatures]]
 
-#training
-classifierSVM = SVC(kernel='linear')
-classifierSVM.fit(allDataTrain, resultTrain)
-classifierKNN = KNeighborsClassifier(n_neighbors=5)
-classifierKNN.fit(allDataTrain, resultTrain)
+	KNNtot = 0
+	SVMtot = 0
+	for i in range(100):
+		allDataTrain, allDataTest, resultTrain, resultTest = train_test_split(dfFeatureSelectedData, dfFeatureSelectedResults, test_size = 0.25)
 
-#Make predictions
-predictionsSVM = list(classifierSVM.predict(allDataTest))
-predictionsKNN = list(classifierKNN.predict(allDataTest))
-resultTest = list(resultTest)
+		#training
+		classifierSVM = SVC(kernel='linear')
+		classifierSVM.fit(allDataTrain, resultTrain)
+		classifierKNN = KNeighborsClassifier(n_neighbors=5)
+		classifierKNN.fit(allDataTrain, resultTrain)
 
-print(resultTest)
-print(predictionsSVM)
-print(predictionsKNN)
+		#Make predictions
+		predictionsSVM = list(classifierSVM.predict(allDataTest))
+		predictionsKNN = list(classifierKNN.predict(allDataTest))
+		resultTest = list(resultTest)
 
-#show results
-print("\n\nSVM=")
-print(sklearn.metrics.f1_score(resultTest, predictionsSVM, average = 'binary'))
-print("\n\nKNN=")
-print(sklearn.metrics.f1_score(resultTest, predictionsKNN, average = 'binary'))
+		SVMtot = SVMtot + sklearn.metrics.f1_score(resultTest, predictionsSVM, average = 'binary')
+		KNNtot = KNNtot + sklearn.metrics.f1_score(resultTest, predictionsKNN, average = 'binary')
+		f = open("resultsEnv_updated.txt", "a")
+	f.write("SVM - Features: " + str(numFeaturesToSel[j-1]) + " - " + str(SVMtot / 100) + '\n')
+	f.write("KNN - Features: " + str(numFeaturesToSel[j-1]) + " - " + str(KNNtot / 100) + '\n')
+	f.close()

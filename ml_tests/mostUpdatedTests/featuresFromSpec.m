@@ -1,9 +1,6 @@
-function [c] = binToDct(fnameIn, fnameout, numFeatures)
-%spec code
-microDoppler_AWR1642_bulk_BPM(fnameIn, fnameout);
-
+function [c] = featuresFromSpec(specFileName, numFeatures)
 %DCT code
-I = imread(fnameout);
+I = imread(specFileName);
 I = rgb2gray(I);
 I = im2double(I);
 
@@ -13,15 +10,14 @@ T = dct(I);
 postZigZag = zigzag(T);
 
 %envelope features (possibly)
-test = im2double(imresize(rgb2gray(imread(fnameout)),[65 65]));
+test = im2double(imresize(rgb2gray(imread(specFileName)),[65 65]));
 ncol = size(test, 2);
 for k=1:ncol
     test(:,k) = rescale(test(:,k), 1, 256);
 end
 envFeatures = env_feat_func(test);
 
-c = [postZigZag(1:numFeatures) envFeatures];
-delete(fnameout);
+c = [postZigZag(1:numFeatures) envFeatures]
 end
 
 % Zigzag scan of a matrix
