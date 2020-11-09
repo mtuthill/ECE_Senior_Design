@@ -9,7 +9,7 @@ from PyQt5.Qt import QUrl
 
 import classify
 
-file = "fallExample.bin"
+file = "default.bin"
 class MainWindow:
     global file
     def __init__(self):
@@ -40,10 +40,7 @@ class MainWindow:
         self.ui.binaryAllClassLabel.setStyleSheet('border: 2px solid black; border-radius: 10px; background: rgb(203,190,181);')
 
     def classifyButtonClicked(self):
-        try:
-            file
-        except:
-            file = "default.bin"
+        print(file)
         fallNonFallClass = classify.classify(self.ui.algorithmDropDown.currentText(), self.ui.numClassCBox.currentText(), file)
         outfile = 'out_spectrogram.png'
         self.ui.spectrogram.setPixmap(QPixmap("out_spectrogram.png"))
@@ -52,6 +49,7 @@ class MainWindow:
         #0 = fallingSitting, 1 = fallingStanding, 2 = fallingWalking, 3 = movement, 4 = sitting, 5 = walking
         #or 0 = nonfall, 1 = fall
         if (self.ui.numClassCBox.currentText() == "Binary"):
+            print("here")
             if(fallNonFallClass == 0):
                 gifFall = QMovie("media/Non-fall.gif")
                 self.ui.result.setMovie(gifFall)
