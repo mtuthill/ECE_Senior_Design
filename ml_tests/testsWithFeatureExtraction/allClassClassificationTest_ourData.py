@@ -44,7 +44,8 @@ fallingWalkingData = []
 movementData = []
 sittingData = []
 walkingData = []
-numFeatures = 500
+numFeatures = 10
+totalFeatures = numFeatures + 7
 
 for file in fallingSittingFiles:
 	print(file)
@@ -90,21 +91,21 @@ results = [0] * len(fallingSittingData) + [1] * len(fallingStandingData) + [2] *
 #prepare data for feature selection
 numpyArrayofArrays = numpy.array([numpy.array(xi) for xi in allData])
 colNames = []
-for i in range(numFeatures):
+for i in range(totalFeatures):
 	colNames.append(str(i))
 df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colNames)
-df.insert(numFeatures, "Classes", results)
+
+#improved feature selection using mRMR
+returned = pymrmr.mRMR(df, "MIQ", 7)
+returnedInts = [int(i) for i in returned]
+print(returnedInts)
+df.insert(totalFeatures, "Classes", results)
 print(df)
 df.to_csv(r'dataFrameAllClass.csv', index = False, header = True)
 
-#improved feature selection using mRMR
-returned = pymrmr.mRMR(df, "MID", 3)
-returnedInts = [int(i) for i in returned]
-print(returnedInts)
-
 #get data after feature selected
 dfFeatureSelectedData = df[df.columns[returnedInts]]
-dfFeatureSelectedResults = df[df.columns[numFeatures]]
+dfFeatureSelectedResults = df[df.columns[totalFeatures]]
 print(dfFeatureSelectedData)
 print(dfFeatureSelectedResults)
 
