@@ -20,7 +20,7 @@ returned = pymrmr.mRMR(df, "MIQ", 7)
 returnedInts = [int(i) for i in returned]
 
 eng = matlab.engine.start_matlab()
-features = eng.featuresFromSpec("6_newDataGen_pete_movement_rig.png", 10)
+features = eng.featuresFromSpec("rainyDay.png", 10)
 h = open('featuresSelected.txt', 'r')
 numDCTFeatures = 10
 listofFeatures = []
