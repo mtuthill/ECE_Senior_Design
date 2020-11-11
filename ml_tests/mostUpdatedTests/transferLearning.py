@@ -33,65 +33,65 @@ def f1(y_true, y_pred): #taken from old keras source code
     f1_val = 2*(precision*recall)/(precision+recall+K.epsilon())
     return f1_val
 
-#get filenames for data
-names = ['Grace', 'Marc', 'Pete']
-fallSubdirs = ['fallingSitting', 'fallingStanding', 'fallingWalking']
-nonFallSubdirs = ['Movement', 'Sitting', 'Walking']
+# #get filenames for data
+# names = ['Grace', 'Marc', 'Pete']
+# fallSubdirs = ['fallingSitting', 'fallingStanding', 'fallingWalking']
+# nonFallSubdirs = ['Movement', 'Sitting', 'Walking']
 
 
-#get filenames for DataFrame
-path = "../../../ECE_Senior_Design_Our_Data"
-fallFiles = []
-nonFallFiles = []
-for name in names:
-	for fallDir in fallSubdirs:
-		fallFiles = fallFiles + [(path + "/"  + name + "/" + fallDir + "/" + f) for f in listdir(join(path, name, fallDir)) if isfile(join(path, name, fallDir, f))]
-	for nonFallDir in nonFallSubdirs:
-		nonFallFiles = nonFallFiles + [(path + "/"  + name + "/" + nonFallDir + "/" + f) for f in listdir(join(path, name, nonFallDir)) if isfile(join(path, name, nonFallDir, f))]
+# #get filenames for DataFrame
+# path = "../../../ECE_Senior_Design_Our_Data"
+# fallFiles = []
+# nonFallFiles = []
+# for name in names:
+# 	for fallDir in fallSubdirs:
+# 		fallFiles = fallFiles + [(path + "/"  + name + "/" + fallDir + "/" + f) for f in listdir(join(path, name, fallDir)) if isfile(join(path, name, fallDir, f))]
+# 	for nonFallDir in nonFallSubdirs:
+# 		nonFallFiles = nonFallFiles + [(path + "/"  + name + "/" + nonFallDir + "/" + f) for f in listdir(join(path, name, nonFallDir)) if isfile(join(path, name, nonFallDir, f))]
 
-eng = matlab.engine.start_matlab()
-fallData = []
-nonFallData = []
+# eng = matlab.engine.start_matlab()
+# fallData = []
+# nonFallData = []
 
-for file in nonFallFiles:
-	print(file)
-	outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
-	eng.microDoppler_AWR1642_bulk_BPM(file, outfile, nargout=0)
-	nonFallData[:0] = [outfile]
-for file in fallFiles:
-	print(file)
-	outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
-	eng.microDoppler_AWR1642_bulk_BPM(file, outfile, nargout=0)
-	fallData[:0] = [outfile]
+# for file in nonFallFiles:
+# 	print(file)
+# 	outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
+# 	eng.microDoppler_AWR1642_bulk_BPM(file, outfile, nargout=0)
+# 	nonFallData[:0] = [outfile]
+# for file in fallFiles:
+# 	print(file)
+# 	outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
+# 	eng.microDoppler_AWR1642_bulk_BPM(file, outfile, nargout=0)
+# 	fallData[:0] = [outfile]
 
-eng.quit()
+# eng.quit()
 
-#make classification list
-resultsFall = [1] * len(fallData)
-resultsNonFall = [0] * len(nonFallData)
+# #make classification list
+# resultsFall = [1] * len(fallData)
+# resultsNonFall = [0] * len(nonFallData)
 
-#prepare data for feature selection
-numpyArrayFall = np.array(fallData)
-numpyArrayNonFall = np.array(nonFallData)
+# #prepare data for feature selection
+# numpyArrayFall = np.array(fallData)
+# numpyArrayNonFall = np.array(nonFallData)
 
-nonFallTrain, nonFallTest, nonFallTrainRes, nonFallTestRes = train_test_split(numpyArrayNonFall, resultsNonFall, test_size = 0.3)
-fallTrain, fallTest, fallTrainRes, fallTestRes = train_test_split(numpyArrayFall, resultsFall, test_size = 0.3)
+# nonFallTrain, nonFallTest, nonFallTrainRes, nonFallTestRes = train_test_split(numpyArrayNonFall, resultsNonFall, test_size = 0.3)
+# fallTrain, fallTest, fallTrainRes, fallTestRes = train_test_split(numpyArrayFall, resultsFall, test_size = 0.3)
 
-os.mkdir("specs")
-os.mkdir("specs/train")
-os.mkdir("specs/test")
-os.mkdir("specs/train/nonFall")
-os.mkdir("specs/train/fall")
-os.mkdir("specs/test/nonFall")
-os.mkdir("specs/test/fall")
-for spec in nonFallTrain:
-	os.rename(spec, "specs/train/nonFall/"+spec)
-for spec in nonFallTest:
-	os.rename(spec, "specs/test/nonFall/"+spec)
-for spec in fallTrain:
-	os.rename(spec, "specs/train/fall/"+spec)
-for spec in fallTest:
-	os.rename(spec, "specs/test/fall/"+spec)
+# os.mkdir("../../../ECE_Senior_Design_Our_Data/specs")
+# os.mkdir("../../../ECE_Senior_Design_Our_Data/specs/train")
+# os.mkdir("../../../ECE_Senior_Design_Our_Data/specs/test")
+# os.mkdir("../../../ECE_Senior_Design_Our_Data/specs/train/nonFall")
+# os.mkdir("../../../ECE_Senior_Design_Our_Data/specs/train/fall")
+# os.mkdir("../../../ECE_Senior_Design_Our_Data/specs/test/nonFall")
+# os.mkdir("../../../ECE_Senior_Design_Our_Data/specs/test/fall")
+# for spec in nonFallTrain:
+# 	os.rename(spec, "../../../ECE_Senior_Design_Our_Data/specs/train/nonFall/"+spec)
+# for spec in nonFallTest:
+# 	os.rename(spec, "../../../ECE_Senior_Design_Our_Data/specs/test/nonFall/"+spec)
+# for spec in fallTrain:
+# 	os.rename(spec, "../../../ECE_Senior_Design_Our_Data/specs/train/fall/"+spec)
+# for spec in fallTest:
+# 	os.rename(spec, "../../../ECE_Senior_Design_Our_Data/specs/test/fall/"+spec)
 
 from keras.preprocessing.image import ImageDataGenerator
 
@@ -153,7 +153,7 @@ score = model.evaluate(test_set)
 print('Test Loss:', score[0])
 print('Test accuracy:', score[1])
 
-print(history.history)
+print(history.history["f1"])
 
 import matplotlib.pyplot as plt
 plt.plot(history.history["accuracy"])
@@ -164,3 +164,6 @@ plt.ylabel("Accuracy")
 plt.xlabel("Epoch")
 plt.legend(["Accuracy", "loss", "f1"])
 plt.show()
+
+# serialize model to JSON
+model.save('binaryModel.h5')
