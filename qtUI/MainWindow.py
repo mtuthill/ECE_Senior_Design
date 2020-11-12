@@ -44,12 +44,13 @@ class MainWindow:
         fallNonFallClass = classify.classify(self.ui.algorithmDropDown.currentText(), self.ui.numClassCBox.currentText(), file)
         outfile = 'out_spectrogram.png'
         self.ui.spectrogram.setPixmap(QPixmap("out_spectrogram.png"))
+        print(fallNonFallClass)
 
         #Display result
         #0 = fallingSitting, 1 = fallingStanding, 2 = fallingWalking, 3 = movement, 4 = sitting, 5 = walking
         #or 0 = nonfall, 1 = fall
         if (self.ui.numClassCBox.currentText() == "Binary"):
-            print("here")
+            print("Binary")
             if(fallNonFallClass == 0):
                 gifFall = QMovie("media/Non-fall.gif")
                 self.ui.result.setMovie(gifFall)
@@ -62,6 +63,7 @@ class MainWindow:
                 gifNonFall.start()
                 self.ui.setStyleSheet("background-color: red;")
         else:
+            print("All class")
             if(fallNonFallClass == 3 or fallNonFallClass == 4 or fallNonFallClass == 5):
                 gifFall = QMovie("media/Non-fall.gif")
                 self.ui.result.setMovie(gifFall)
