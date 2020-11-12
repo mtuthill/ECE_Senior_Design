@@ -125,7 +125,11 @@ for i in range(numberOfRuns):
 	allDataTrain, allDataTest, resultTrain, resultTest = train_test_split(dfFeatureSelectedData, dfFeatureSelectedResults, test_size = testTrainSplit)
 
 	#Train algorithm
-	classifier = SVC(kernel=kernel)
+	if (kernel == "poly"):
+		classifier = SVC(kernel=kernel, degree=3)
+	else:
+		classifier = SVC(kernel=kernel)
+
 	classifier.fit(allDataTrain, resultTrain)
 
 	#Make predictions
