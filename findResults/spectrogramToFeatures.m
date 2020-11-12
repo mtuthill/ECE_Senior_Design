@@ -1,28 +1,42 @@
-function [c] = binToDct(fnameIn, fnameout, numFeatures)
-%spec code
-microDoppler_AWR1642_bulk_BPM(fnameIn, fnameout);
+function [c] = spectrogramToFeatures(spectrogramFileName, dctFeaturesFlag, envFeaturesFlag, physFeaturesFlag, numDCTFeatures)
+dctFeatures = [];
+envFeatures = [];
+physicalFeatures = [];
+if dctFeaturesFlag == 1
+    %DCT code
+    I = imread(spectrogramFileName);
+    I = rgb2gray(I);
+    I = im2double(I);
 
-%DCT code
-I = imread(fnameout);
-I = rgb2gray(I);
-I = im2double(I);
+    T = dct(I);
 
-T = dct(I);
-
-%get the coefficients after zig zagging
-postZigZag = zigzag(T);
-
-%envelope features (possibly)
-test = im2double(imresize(rgb2gray(imread(fnameout)),[65 65]));
-ncol = size(test, 2);
-for k=1:ncol
-    test(:,k) = rescale(test(:,k), 1, 256);
+    %get the coefficients after zig zagging
+    postZigZag = zigzag(T);
+    dctFeatures = postZigZag(1:numDCTFeatures);
 end
-envFeatures = env_feat_func(test);
 
-c = [postZigZag(1:numFeatures) envFeatures];
-delete(fnameout);
+if envFeaturesFlag == 1
+    %envelope features (possibly)
+    test = im2double(imresize(rgb2gray(imread(spectrogramFileName)),[65 65]));
+    ncol = size(test, 2);
+    for k=1:ncol
+        test(:,k) = rescale(test(:,k), 1, 256);
+    end
+    envFeatures = env_feat_func(test);
 end
+
+if physFeaturesFlag == 1
+    %envelope features (possibly)
+    test = im2double(imresize(rgb2gray(imread(spectrogramFileName)),[65 65]));
+    ncol = size(test, 2);
+    for k=1:ncol
+        test(:,k) = rescale(test(:,k), 1, 256);
+    end
+    physicalFeatures = getPhysicalFeatures(test);
+end
+c = [dctFeatures envFeatures physicalFeatures];
+end
+
 
 % Zigzag scan of a matrix
 % Argument is a two-dimensional matrix of any size,

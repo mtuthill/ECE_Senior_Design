@@ -1,4 +1,4 @@
-function f = env_feat_func(img_matrix)
+function f = getPhysicalFeatures(img_matrix)
 
 total_pow = sum(img_matrix);
 upper_lim = 0.97*total_pow;
@@ -43,15 +43,23 @@ for t = 1:size(img_matrix,2)
     end
     central_env(t) = v;
 end
-%% Features
-f(1) = min(upper_env); %  minimum value of the upper envelope
-f(2) = max(upper_env); %  maximum value of the upper envelope
-f(3) = mean(upper_env); %  meanvalue of the upper envelope
 
-f(4) = min(lower_env); %  minimum value of the lower envelope
-f(5) = max(lower_env); %  maximum value of the lower envelope
-f(6) = mean(lower_env); %  meanvalue of the lower envelope
+[upperEnvPeaks] = findpeaks(upper_env);
 
-f(7) = abs(f(3)-f(6)); % difference between upper and lower envelope averages
+invertedY = max(lower_env) - lower_env;
+[lowerEnvPeaks] = findpeaks(invertedY);
+
+f(1) = mean(upperEnvPeaks) - mean(lowerEnvPeaks); % bandwidth
+
+f(2) = mean(horzcat(upperEnvPeaks, lowerEnvPeaks)); %offset
+
+invertedY = max(upper_env) - upper_env;
+[upperEnvValleys] = findpeaks(invertedY);
+
+[lowerEnvValleys] = findpeaks(lower_env);
+
+f(3) = mean(upperEnvValleys) - mean(lowerEnvValleys); % BW w/o uD
+
+f(4) = std(img_matrix) / mean(img_matrix); %normalized std of signal strength
 
 end
