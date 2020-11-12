@@ -100,11 +100,11 @@ class MainWindow:
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: green;")
 
-            #else:
-                #gifNonFall = QMovie("media/Fall_gif.gif")
-                #self.ui.result.setMovie(gifNonFall)
-                #gifNonFall.start()
-                #self.ui.setStyleSheet("background-color: red;")
+            else:
+                gifNonFall = QMovie("media/EventUnknown.gif")
+                self.ui.result.setMovie(gifNonFall)
+                gifNonFall.start()
+                self.ui.setStyleSheet("background-color: red;")
 
     def changeEventButtonClicked(self):
         #open finder and change file. Must be in same directory
