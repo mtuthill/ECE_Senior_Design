@@ -103,7 +103,7 @@ for i in range(numberOfRuns):
 		classifier = SVC(kernel=kernel, degree=3)
 	else:
 		classifier = SVC(kernel=kernel)
-		
+
 	classifier.fit(allDataTrain, resultTrain)
 
 	#Make predictions
