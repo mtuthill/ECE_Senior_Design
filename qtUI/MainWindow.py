@@ -1,13 +1,13 @@
 import sys
 import os
-import matlab.engine
+#import matlab.engine
 
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QFileDialog, QApplication
 from PyQt5 import uic
 from PyQt5.Qt import QUrl
 
-import classify
+#import classify
 
 file = "default.bin"
 class MainWindow:
@@ -50,7 +50,7 @@ class MainWindow:
         #0 = fallingSitting, 1 = fallingStanding, 2 = fallingWalking, 3 = movement, 4 = sitting, 5 = walking
         #or 0 = nonfall, 1 = fall
         if (self.ui.numClassCBox.currentText() == "Binary"):
-            print("Binary")
+            #print("Binary")
             if(fallNonFallClass == 0):
                 gifFall = QMovie("media/Non-fall.gif")
                 self.ui.result.setMovie(gifFall)
@@ -63,18 +63,48 @@ class MainWindow:
                 gifNonFall.start()
                 self.ui.setStyleSheet("background-color: red;")
         else:
-            print("All class")
-            if(fallNonFallClass == 3 or fallNonFallClass == 4 or fallNonFallClass == 5):
-                gifFall = QMovie("media/Non-fall.gif")
+            #print("All class")
+            if(fallNonFallClass == 0):
+                gifFall = QMovie("media/FallFromSitting.gif")
+                self.ui.result.setMovie(gifFall)
+                gifFall.start()
+                self.ui.setStyleSheet("background-color: red;")
+
+            if(fallNonFallClass == 1):
+                gifFall = QMovie("media/FallFromStand.gif")
+                self.ui.result.setMovie(gifFall)
+                gifFall.start()
+                self.ui.setStyleSheet("background-color: red;")
+
+            if(fallNonFallClass == 2):
+                gifFall = QMovie("media/FallFromWalk.gif")
+                self.ui.result.setMovie(gifFall)
+                gifFall.start()
+                self.ui.setStyleSheet("background-color: red;")
+
+            if(fallNonFallClass == 3):
+                gifFall = QMovie("media/GenericMovement.gif")
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: green;")
 
-            else:
-                gifNonFall = QMovie("media/Fall_gif.gif")
-                self.ui.result.setMovie(gifNonFall)
-                gifNonFall.start()
-                self.ui.setStyleSheet("background-color: red;")
+            if(fallNonFallClass == 4):
+                gifFall = QMovie("media/Sitting.gif")
+                self.ui.result.setMovie(gifFall)
+                gifFall.start()
+                self.ui.setStyleSheet("background-color: green;")
+
+            if(fallNonFallClass == 5):
+                gifFall = QMovie("media/Walking.gif")
+                self.ui.result.setMovie(gifFall)
+                gifFall.start()
+                self.ui.setStyleSheet("background-color: green;")
+
+            #else:
+                #gifNonFall = QMovie("media/Fall_gif.gif")
+                #self.ui.result.setMovie(gifNonFall)
+                #gifNonFall.start()
+                #self.ui.setStyleSheet("background-color: red;")
 
     def changeEventButtonClicked(self):
         #open finder and change file. Must be in same directory
