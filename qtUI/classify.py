@@ -39,7 +39,7 @@ def classify(type, binAllClass, file):
         else:
             print("Multi CNN")
             model = load_model('allClassModel.h5')
-
+        print("Model loaded")
 
         eng.microDoppler_AWR1642_bulk_BPM(file, specfile, nargout=0)
         test_image = image.load_img(specfile, color_mode ='rgb', target_size = (224, 224))

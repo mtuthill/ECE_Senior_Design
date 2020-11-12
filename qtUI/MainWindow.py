@@ -1,13 +1,13 @@
 import sys
 import os
-#import matlab.engine
+import matlab.engine
 
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QFileDialog, QApplication
 from PyQt5 import uic
 from PyQt5.Qt import QUrl
 
-#import classify
+import classify
 
 file = "default.bin"
 class MainWindow:
