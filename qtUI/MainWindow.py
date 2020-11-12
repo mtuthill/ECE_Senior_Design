@@ -70,31 +70,31 @@ class MainWindow:
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: red;")
 
-            if(fallNonFallClass == 1):
+            elif(fallNonFallClass == 1):
                 gifFall = QMovie("media/FallFromStand.gif")
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: red;")
 
-            if(fallNonFallClass == 2):
+            elif(fallNonFallClass == 2):
                 gifFall = QMovie("media/FallFromWalk.gif")
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: red;")
 
-            if(fallNonFallClass == 3):
+            elif(fallNonFallClass == 3):
                 gifFall = QMovie("media/GenericMovement.gif")
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: green;")
 
-            if(fallNonFallClass == 4):
+            elif(fallNonFallClass == 4):
                 gifFall = QMovie("media/Sitting.gif")
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: green;")
 
-            if(fallNonFallClass == 5):
+            elif(fallNonFallClass == 5):
                 gifFall = QMovie("media/Walking.gif")
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
