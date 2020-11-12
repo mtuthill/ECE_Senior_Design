@@ -2,6 +2,7 @@ import os
 import matlab.engine
 import numpy as np
 import time
+import shutil
 from os import listdir
 from os.path import isfile, join
 from sklearn.model_selection import train_test_split
@@ -33,152 +34,104 @@ def f1(y_true, y_pred): #taken from old keras source code
     f1_val = 2*(precision*recall)/(precision+recall+K.epsilon())
     return f1_val
 
-# #get filenames for data
-# names = ['Grace', 'Marc', 'Pete']
-# subDirs = ['fallingSitting', 'fallingStanding', 'fallingWalking', 'Movement', 'Sitting', 'Walking']
+#get filenames for data
+names = ['GraceSpecs', 'MarcSpecs', 'PeteSpecs']
+subDirs = ['fallingSitting', 'fallingStanding', 'fallingWalking', 'Movement', 'Sitting', 'Walking']
 
-# #get filenames for data
-# path = "../../../ECE_Senior_Design_Our_Data"
-# fallingSittingFiles = []
-# fallingStandingFiles = []
-# fallingWalkingFiles = []
-# movementFiles = []
-# sittingFiles = []
-# walkingFiles = []
+#get filenames for data
+path = "../../ECE_Senior_Design_Our_Data"
+fallingSittingFiles = []
+fallingStandingFiles = []
+fallingWalkingFiles = []
+movementFiles = []
+sittingFiles = []
+walkingFiles = []
 
-# for name in names:
-#   fallingSittingFiles = fallingSittingFiles + [(path + "/"  + name + "/" + subDirs[0] + "/" + f) for f in listdir(join(path, name, subDirs[0])) if isfile(join(path, name, subDirs[0], f))]
-#   fallingStandingFiles = fallingStandingFiles + [(path + "/"  + name + "/" + subDirs[1] + "/" + f) for f in listdir(join(path, name, subDirs[1])) if isfile(join(path, name, subDirs[1], f))]
-#   fallingWalkingFiles = fallingWalkingFiles + [(path + "/"  + name + "/" + subDirs[2] + "/" + f) for f in listdir(join(path, name, subDirs[2])) if isfile(join(path, name, subDirs[2], f))]
-#   movementFiles = movementFiles + [(path + "/"  + name + "/" + subDirs[3] + "/" + f) for f in listdir(join(path, name, subDirs[3])) if isfile(join(path, name, subDirs[3], f))]
-#   sittingFiles = sittingFiles + [(path + "/"  + name + "/" + subDirs[4] + "/" + f) for f in listdir(join(path, name, subDirs[4])) if isfile(join(path, name, subDirs[4], f))]
-#   walkingFiles = walkingFiles + [(path + "/"  + name + "/" + subDirs[5] + "/" + f) for f in listdir(join(path, name, subDirs[5])) if isfile(join(path, name, subDirs[5], f))]
+for name in names:
+  fallingSittingFiles = fallingSittingFiles + [(path + "/"  + name + "/" + subDirs[0] + "/" + f) for f in listdir(join(path, name, subDirs[0])) if isfile(join(path, name, subDirs[0], f))]
+  fallingStandingFiles = fallingStandingFiles + [(path + "/"  + name + "/" + subDirs[1] + "/" + f) for f in listdir(join(path, name, subDirs[1])) if isfile(join(path, name, subDirs[1], f))]
+  fallingWalkingFiles = fallingWalkingFiles + [(path + "/"  + name + "/" + subDirs[2] + "/" + f) for f in listdir(join(path, name, subDirs[2])) if isfile(join(path, name, subDirs[2], f))]
+  movementFiles = movementFiles + [(path + "/"  + name + "/" + subDirs[3] + "/" + f) for f in listdir(join(path, name, subDirs[3])) if isfile(join(path, name, subDirs[3], f))]
+  sittingFiles = sittingFiles + [(path + "/"  + name + "/" + subDirs[4] + "/" + f) for f in listdir(join(path, name, subDirs[4])) if isfile(join(path, name, subDirs[4], f))]
+  walkingFiles = walkingFiles + [(path + "/"  + name + "/" + subDirs[5] + "/" + f) for f in listdir(join(path, name, subDirs[5])) if isfile(join(path, name, subDirs[5], f))]
 
+#make classification list
+resultsFallingSitting = [0] * len(fallingSittingFiles)
+resultsFallingStanding = [1] * len(fallingStandingFiles)
+resultsFallingWalking = [2] * len(fallingWalkingFiles)
 
-# #get spectrograms and get features from spectrograms
-# eng = matlab.engine.start_matlab()
-# fallingSittingData = []
-# fallingStandingData = []
-# fallingWalkingData = []
-# movementData = []
-# sittingData = []
-# walkingData = []
+resultsMovement = [3] * len(movementFiles)
+resultsSitting = [4] * len(sittingFiles)
+resultsWalking = [5] * len(walkingFiles)
 
-# for file in fallingSittingFiles:
-# 	print(file)
-# 	outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
-# 	eng.microDoppler_AWR1642_bulk_BPM(file, outfile, nargout=0)
-# 	fallingSittingData[:0] = [outfile]
+#prepare data for feature selection
+fallingSittingFiles = np.array(fallingSittingFiles)
+fallingStandingFiles = np.array(fallingStandingFiles)
+fallingWalkingFiles = np.array(fallingWalkingFiles)
 
-# for file in fallingStandingFiles:
-# 	print(file)
-# 	outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
-# 	eng.microDoppler_AWR1642_bulk_BPM(file, outfile, nargout=0)
-# 	fallingStandingData[:0] = [outfile]
+movementFiles = np.array(movementFiles)
+sittingFiles = np.array(sittingFiles)
+walkingFiles = np.array(walkingFiles)
 
-# for file in fallingWalkingFiles:
-#   print(file)
-#   outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
-#   eng.microDoppler_AWR1642_bulk_BPM(file, outfile, nargout=0)
-#   fallingWalkingData[:0] = [outfile]
+fallingSittingData_Train, fallingSittingData_Test, fallingSittingData_TrainResults, fallingSittingData_TestResults = train_test_split(fallingSittingFiles, resultsFallingSitting, test_size = 0.3)
+fallingStandingData_Train, fallingStandingData_Test, fallingStandingData_TrainResults, fallingStandingData_TestResults = train_test_split(fallingStandingFiles, resultsFallingStanding, test_size = 0.3)
+fallingWalkingData_Train, fallingWalkingData_Test, fallingWalkingData_TrainResults, fallingWalkingData_TestResults = train_test_split(fallingWalkingFiles, resultsFallingWalking, test_size = 0.3)
 
-# for file in movementFiles:
-#   print(file)
-#   outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
-#   eng.microDoppler_AWR1642_bulk_BPM(file, outfile, nargout=0)
-#   movementData[:0] = [outfile]
+movementData_Train, movementData_Test, movementData_TrainResults, movementData_TestResults = train_test_split(movementFiles, resultsMovement, test_size = 0.3)
+sittingData_Train, sittingData_Test, sittingData_TrainResults, sittingData_TestResults = train_test_split(sittingFiles, resultsSitting, test_size = 0.3)
+walkingData_Train, walkingData_Test, walkingData_TrainResults, walkingData_TestResults = train_test_split(walkingFiles, resultsWalking, test_size = 0.3)
 
-# for file in sittingFiles:
-#   print(file)
-#   outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
-#   eng.microDoppler_AWR1642_bulk_BPM(file, outfile, nargout=0)
-#   sittingData[:0] = [outfile]
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN")
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train")
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test")
 
-# for file in walkingFiles:
-#   print(file)
-#   outfile = 'out_' + str(int(round(time.time() * 1000))) + '.png'
-#   eng.microDoppler_AWR1642_bulk_BPM(file, outfile, nargout=0)
-#   walkingData[:0] = [outfile]
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/fallingSittingFiles")
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/fallingSittingFiles")
 
-# eng.quit()
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/fallingStandingFiles")
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/fallingStandingFiles")
 
-# #make classification list
-# resultsFallingSitting = [0] * len(fallingSittingData)
-# resultsFallingStanding = [1] * len(fallingStandingData)
-# resultsFallingWalking = [2] * len(fallingWalkingData)
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/fallingWalkingFiles")
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/fallingWalkingFiles")
 
-# resultsMovement = [3] * len(movementData)
-# resultsSitting = [4] * len(sittingData)
-# resultsWalking = [5] * len(walkingData)
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/movementFiles")
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/movementFiles")
 
-# #prepare data for feature selection
-# fallingSittingData = np.array(fallingSittingData)
-# fallingStandingData = np.array(fallingStandingData)
-# fallingWalkingData = np.array(fallingWalkingData)
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/sittingFiles")
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/sittingFiles")
 
-# movementData = np.array(movementData)
-# sittingData = np.array(sittingData)
-# walkingData = np.array(walkingData)
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/walkingFiles")
+os.mkdir("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/walkingFiles")
 
-# fallingSittingData_Train, fallingSittingData_Test, fallingSittingData_TrainResults, fallingSittingData_TestResults = train_test_split(fallingSittingData, resultsFallingSitting, test_size = 0.3)
-# fallingStandingData_Train, fallingStandingData_Test, fallingStandingData_TrainResults, fallingStandingData_TestResults = train_test_split(fallingStandingData, resultsFallingStanding, test_size = 0.3)
-# fallingWalkingData_Train, fallingWalkingData_Test, fallingWalkingData_TrainResults, fallingWalkingData_TestResults = train_test_split(fallingWalkingData, resultsFallingWalking, test_size = 0.3)
+for spec in fallingSittingData_Train:
+	shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/fallingSittingFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
+for spec in fallingSittingData_Test:
+	shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/fallingSittingFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
 
-# movementData_Train, movementData_Test, movementData_TrainResults, movementData_TestResults = train_test_split(movementData, resultsMovement, test_size = 0.3)
-# sittingData_Train, sittingData_Test, sittingData_TrainResults, sittingData_TestResults = train_test_split(sittingData, resultsSitting, test_size = 0.3)
-# walkingData_Train, walkingData_Test, walkingData_TrainResults, walkingData_TestResults = train_test_split(walkingData, resultsWalking, test_size = 0.3)
+for spec in fallingStandingData_Train:
+	shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/fallingStandingFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
+for spec in fallingStandingData_Test:
+	shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/fallingStandingFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
 
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs")
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/train")
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/test")
+for spec in fallingWalkingData_Train:
+  shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/fallingWalkingFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
+for spec in fallingWalkingData_Test:
+  shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/fallingWalkingFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
 
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/fallingSittingFiles")
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/fallingSittingFiles")
+for spec in movementData_Train:
+  shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/movementFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
+for spec in movementData_Test:
+  shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/movementFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
 
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/fallingStandingFiles")
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/fallingStandingFiles")
+for spec in sittingData_Train:
+  shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/sittingFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
+for spec in sittingData_Test:
+  shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/sittingFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
 
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/fallingWalkingFiles")
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/fallingWalkingFiles")
-
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/movementFiles")
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/movementFiles")
-
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/sittingFiles")
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/sittingFiles")
-
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/walkingFiles")
-# os.mkdir("../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/walkingFiles")
-
-# for spec in fallingSittingData_Train:
-# 	os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/fallingSittingFiles/"+spec)
-# for spec in fallingSittingData_Test:
-# 	os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/fallingSittingFiles/"+spec)
-
-# for spec in fallingStandingData_Train:
-# 	os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/fallingStandingFiles/"+spec)
-# for spec in fallingStandingData_Test:
-# 	os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/fallingStandingFiles/"+spec)
-
-# for spec in fallingWalkingData_Train:
-#   os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/fallingWalkingFiles/"+spec)
-# for spec in fallingWalkingData_Test:
-#   os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/fallingWalkingFiles/"+spec)
-
-# for spec in movementData_Train:
-#   os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/movementFiles/"+spec)
-# for spec in movementData_Test:
-#   os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/movementFiles/"+spec)
-
-# for spec in sittingData_Train:
-#   os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/sittingFiles/"+spec)
-# for spec in sittingData_Test:
-#   os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/sittingFiles/"+spec)
-
-# for spec in walkingData_Train:
-#   os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/train/walkingFiles/"+spec)
-# for spec in walkingData_Test:
-#   os.rename(spec, "../../../ECE_Senior_Design_Our_Data/allClassSpecs/test/walkingFiles/"+spec)
+for spec in walkingData_Train:
+  shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train/walkingFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
+for spec in walkingData_Test:
+  shutil.copy(spec, "../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test/walkingFiles/"+ "_" + spec.rsplit('/', 5)[-2] + "_" + spec.rsplit('/', 5)[-3] + spec.rsplit('/', 5)[-1])
 
 from keras.preprocessing.image import ImageDataGenerator
 
@@ -189,13 +142,13 @@ train_datagen = ImageDataGenerator(rescale = 1./255,
 
 test_datagen = ImageDataGenerator(rescale = 1./255)
 
-training_set = train_datagen.flow_from_directory("../../../ECE_Senior_Design_Our_Data/allClassSpecs/train",
+training_set = train_datagen.flow_from_directory("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/train",
                                                  target_size = (224, 224),
                                                  batch_size = 8,
                                                  subset="training",
                                                  class_mode = 'categorical')
 
-test_set = train_datagen.flow_from_directory("../../../ECE_Senior_Design_Our_Data/allClassSpecs/test",
+test_set = train_datagen.flow_from_directory("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN/test",
                                                  target_size = (224, 224),
                                                  batch_size = 8,
                                                  class_mode = 'categorical')
@@ -252,5 +205,4 @@ plt.xlabel("Epoch")
 plt.legend(["Accuracy", "loss", "F1"])
 plt.show()
 
-# serialize model to JSON
-model.save('allClassModel.h5')
+shutil.rmtree("../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN")
