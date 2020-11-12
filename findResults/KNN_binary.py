@@ -21,7 +21,7 @@ numDCTFeatures = 10
 dctFeaturesFlag = 1
 envFeaturesFlag = 1
 physFeaturesFlag = 1
-numFeaturesToSelect = 1
+numFeaturesToSelect = 10
 mRMRType = "MIQ"			#Has to be "MIQ" or "MID"
 testTrainSplit = 0.3		#Default is 0.3
 K = 11						#Default is 11
@@ -81,11 +81,12 @@ colNames = []
 for i in range(numFeatures):
 	colNames.append(str(i))
 df = pandas.DataFrame(data = numpyArrayofArrays, index = None, columns = colNames)
-df.insert(numFeatures, "Classes", results)
 
 #improved feature selection using mRMR
 returned = pymrmr.mRMR(df, mRMRType, numFeaturesToSelect)
 returnedInts = [int(i) for i in returned]
+
+df.insert(numFeatures, "Classes", results)
 
 #get data after feature selected
 dfFeatureSelectedData = df[df.columns[returnedInts]]
