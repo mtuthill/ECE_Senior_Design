@@ -17,13 +17,13 @@ from sklearn.metrics import classification_report, confusion_matrix
 #CHANGE THESE AS NEEDED
 ##################################
 numDCTFeatures = 10
-dctFeaturesFlag = 1
-envFeaturesFlag = 1
+dctFeaturesFlag = 0
+envFeaturesFlag = 0
 physFeaturesFlag = 1
 numFeaturesToSelect = 1
 mRMRType = "MIQ"			#Has to be "MIQ" or "MID"
 testTrainSplit = 0.3		#Default is 0.3
-kernel = "linear"			#Default is linear, can be "linear", "poly", "rbf", "sigmoid"
+kernel = "poly"			#Default is linear, can be "linear", "poly", "rbf", "sigmoid"
 numberOfRuns = 50			#Default it 50
 ##################################
 
@@ -126,10 +126,13 @@ for i in range(numberOfRuns):
 
 	#Train algorithm
 	if (kernel == "poly"):
-		classifier = SVC(kernel=kernel, degree=3)
+		classifier = SVC(kernel=j, degree=3)
+	elif (kernel == "rbf"):
+		classifier = SVC(kernel='rbf', gamma=0.7)
+	elif (kernel == "sigmoid"):
+		classifier = SVC(kernel = 'sigmoid', gamma=2)
 	else:
-		classifier = SVC(kernel=kernel)
-
+		classifier = SVC(kernel=j)
 	classifier.fit(allDataTrain, resultTrain)
 
 	#Make predictions
