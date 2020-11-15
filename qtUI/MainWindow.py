@@ -8,6 +8,7 @@ from PyQt5 import uic
 from PyQt5.Qt import QUrl
 
 import classify
+import sendSMS
 
 file = "default.bin"
 class MainWindow:
@@ -42,6 +43,7 @@ class MainWindow:
     def classifyButtonClicked(self):
         print(file)
         fallNonFallClass = classify.classify(self.ui.algorithmDropDown.currentText(), self.ui.numClassCBox.currentText(), file)
+        sendSMS.sendSMS(fallNonFallClass)
         outfile = 'out_spectrogram.png'
         self.ui.spectrogram.setPixmap(QPixmap("out_spectrogram.png"))
         print(fallNonFallClass)
@@ -56,6 +58,7 @@ class MainWindow:
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: green;")
+                sendSMS()
 
             else:
                 gifNonFall = QMovie("media/Fall_gif.gif")
@@ -69,19 +72,22 @@ class MainWindow:
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: red;")
+                sendSMS()
 
             elif(fallNonFallClass == 1):
                 gifFall = QMovie("media/FallFromStand.gif")
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: red;")
+                sendSMS()
 
             elif(fallNonFallClass == 2):
                 gifFall = QMovie("media/FallFromWalk.gif")
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: red;")
-
+                sendSMS()
+                
             elif(fallNonFallClass == 3):
                 gifFall = QMovie("media/GenericMovement.gif")
                 self.ui.result.setMovie(gifFall)
@@ -119,9 +125,3 @@ class MainWindow:
         vidResults = QMovie(vidfile)
         self.ui.videoGifLabel.setMovie(vidResults)
         vidResults.start()
-
-
-
-
-
-
