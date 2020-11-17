@@ -19,6 +19,3 @@ def sendSMS():
                            from_="+15025470479",
                            body=messageBody)
     print(message.sid)
-
-
-sendSMS()
