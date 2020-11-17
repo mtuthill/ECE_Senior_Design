@@ -118,7 +118,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QGridLayout" name="buttonAlgLayout" rowstretch="1,1,1" columnstretch="6,2,2,1,6">
+     <layout class="QGridLayout" name="buttonAlgLayout" rowstretch="1,2,2" columnstretch="6,1,1,1,6">
       <item row="1" column="0" rowspan="2">
        <spacer name="horizontalSpacer_4">
         <property name="orientation">
@@ -132,18 +132,12 @@
         </property>
        </spacer>
       </item>
-      <item row="1" column="4" rowspan="2">
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+      <item row="0" column="3" alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="autoClassifyLabel">
+        <property name="text">
+         <string>Auto Classify</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>188</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
       <item row="2" column="1">
        <widget class="QComboBox" name="algorithmDropDown">
@@ -177,23 +171,6 @@
         </property>
        </spacer>
       </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="algorithmLabel">
-        <property name="text">
-         <string>Classification Algorithm</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" alignment="Qt::AlignHCenter">
-       <widget class="QLabel" name="binaryAllClassLabel">
-        <property name="text">
-         <string>Binary/All Class</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="2">
        <widget class="QComboBox" name="numClassCBox">
         <item>
@@ -208,10 +185,47 @@
         </item>
        </widget>
       </item>
+      <item row="1" column="2" alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="binaryAllClassLabel">
+        <property name="text">
+         <string>Binary/All Class</string>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="3">
        <widget class="QPushButton" name="classifyButton">
         <property name="text">
          <string>Classify</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4" rowspan="2">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>188</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="algorithmLabel">
+        <property name="text">
+         <string>Classification Algorithm</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+       <widget class="QCheckBox" name="autoEnableCheckbox">
+        <property name="text">
+         <string>Enable</string>
         </property>
        </widget>
       </item>

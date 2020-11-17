@@ -1,11 +1,13 @@
 import sys
 import os
 import matlab.engine
+import glob
 
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QFileDialog, QApplication
 from PyQt5 import uic
 from PyQt5.Qt import QUrl
+from PyQt5 import QtCore
 
 import classify
 from sendSMS import sendSMS
@@ -39,6 +41,34 @@ class MainWindow:
 
         self.ui.algorithmLabel.setStyleSheet('border: 2px solid black; border-radius: 10px; background: rgb(203,190,181);')
         self.ui.binaryAllClassLabel.setStyleSheet('border: 2px solid black; border-radius: 10px; background: rgb(203,190,181);')
+        self.ui.autoClassifyLabel.setStyleSheet('border: 2px solid black; border-radius: 10px; background: rgb(203,190,181);')
+
+        self._pathToWatch = "./"
+        self._initialContent = os.listdir(self._pathToWatch)
+        self._fileSysWatcher = QtCore.QFileSystemWatcher()
+        self._fileSysWatcher.addPath(self._pathToWatch)
+        self._fileSysWatcher.addPath("./radarIn")
+
+        self._fileSysWatcher.fileChanged.connect(self.slotFileChanged)
+        self._fileSysWatcher.directoryChanged.connect(self.slotFileChanged)
+        self.ui.autoEnableCheckbox.stateChanged.connect(self.checkboxStateChanged)
+
+    def slotFileChanged(self):
+        print("File changed")
+        binFiles = glob.glob("./radarIn/*.bin")
+        if (self.ui.autoEnableCheckbox.isChecked()):
+            if "./radarIn\\empty_target_Raw_0.bin" in binFiles:
+                if (os.stat('./radarIn/empty_target_Raw_0.bin').st_size >= 76799999):
+                    global file
+                    file = './radarIn/empty_target_Raw_0.bin'
+                    self.classifyButtonClicked()
+                    os.remove("./radarIn/empty_target_Raw_0.bin")
+
+    def checkboxStateChanged(self):
+        binFiles = glob.glob("./radarIn/*.bin")
+        print(binFiles)
+        if (self.ui.autoEnableCheckbox.isChecked() and "./radarIn\\empty_target_Raw_0.bin" in binFiles):
+            os.remove("./radarIn/empty_target_Raw_0.bin")
 
     def classifyButtonClicked(self):
         print(file)

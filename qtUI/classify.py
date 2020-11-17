@@ -71,7 +71,7 @@ def classify(type, binAllClass, file):
         classInfoFile.close()
 
         #Send info to ftp
-        ftp = FTP('172.20.10.5')     #172.20.10.5 -wavlink
+        ftp = FTP('192.168.10.199')     #192.168.10.199 -wavlink
         ftp.login(user='pi', passwd = 'radar')
         ftpAccess.uploadFileToServer(ftp, filename, "~/ftp/files", filename)
         ftp.quit()
@@ -108,7 +108,7 @@ def classify(type, binAllClass, file):
     classInfoFile.close()
 
     #Send info to ftp
-    ftp = FTP('172.20.10.5')
+    ftp = FTP('192.168.10.199')
     ftp.login(user='pi', passwd = 'radar')
     ftpAccess.uploadFileToServer(ftp, filename, "~/ftp/files", filename)
     ftp.quit()
