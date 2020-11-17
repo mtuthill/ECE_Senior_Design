@@ -74,10 +74,10 @@ def classify(type, binAllClass, file):
 
         return res
 
-    if (binAllClass == "Binary"):
-        h = open('featuresSelected.txt', 'r')
+    if (type == "Support Vector Machine"):
+        h = open('featuresSVM.txt', 'r')
     else:
-        h = open('featuresSelectedAllClass.txt', 'r')
+        h = open('featuresKNN.txt', 'r')
     numDCTFeatures = 10
     features = eng.binToDct(file, specfile, numDCTFeatures)
 
