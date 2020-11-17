@@ -8,7 +8,7 @@ from PyQt5 import uic
 from PyQt5.Qt import QUrl
 
 import classify
-import sendSMS
+from sendSMS import sendSMS
 
 file = "default.bin"
 class MainWindow:
@@ -43,7 +43,6 @@ class MainWindow:
     def classifyButtonClicked(self):
         print(file)
         fallNonFallClass = classify.classify(self.ui.algorithmDropDown.currentText(), self.ui.numClassCBox.currentText(), file)
-        #sendSMS.sendSMS(fallNonFallClass)
         outfile = 'out_spectrogram.png'
         self.ui.spectrogram.setPixmap(QPixmap("out_spectrogram.png"))
         print(fallNonFallClass)

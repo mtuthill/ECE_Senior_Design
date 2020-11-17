@@ -19,7 +19,8 @@ class Ui(QtWidgets.QMainWindow):
         #Display result
         #0 = fallingSitting, 1 = fallingStanding, 2 = fallingWalking, 3 = movement, 4 = sitting, 5 = walking
         #or 0 = nonfall, 1 = fall
-        if (type == "Binary"):
+        print(type)
+        if ("y" in type):
             if(fallNonFallClass == 0):
                 gifFall = QMovie("media/Non-fall.gif")
                 self.result.setMovie(gifFall)
@@ -93,7 +94,11 @@ class Ui(QtWidgets.QMainWindow):
             file = open('classificationInfo.txt')
             lines = file.readlines()
             file.close()
-            self.displayResult(int(lines[1]), lines[2])
+            if (len(lines) > 1):
+                self.displayResult(int(lines[1]), str(lines[2]))
+
+        if (os.path.exists('classificationInfo.txt')):
+            os.remove('classificationInfo.txt')
 
     def __init__(self):
         super(Ui, self).__init__()

@@ -4,6 +4,7 @@ import sklearn
 import joblib
 import time
 import matlab.engine
+import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -60,10 +61,25 @@ def classify(type, binAllClass, file):
             resultNum = dictAllClass[res]
 
         print("The predicted output is : ", resultNum)
-        print(res)
+
+        #write file
+        filename = "classificationInfo.txt"
+        classInfoFile = open(filename, "w")
+        classInfoFile.write("1\n")
+        classInfoFile.write(str(res) + '\n')
+        classInfoFile.write(str(binAllClass))
+        classInfoFile.close()
+
+        #Send info to ftp
+        ftp = FTP('192.168.10.199')
+        ftp.login(user='pi', passwd = 'radar')
+        ftpAccess.uploadFileToServer(ftp, filename, "~/ftp/files", filename)
+        ftp.quit()
+
+        os.remove(filename)
+
         return res
 
-    print("Non CNN")
     if (binAllClass == "Binary"):
         h = open('featuresSelected.txt', 'r')
     else:
@@ -96,5 +112,7 @@ def classify(type, binAllClass, file):
     ftp.login(user='pi', passwd = 'radar')
     ftpAccess.uploadFileToServer(ftp, filename, "~/ftp/files", filename)
     ftp.quit()
+
+    os.remove(filename)
 
     return result
