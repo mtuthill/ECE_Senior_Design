@@ -22,27 +22,21 @@ def classify(type, binAllClass, file):
     specfile = "out_spectrogram.png"
     if (type == "Support Vector Machine"):
         if (binAllClass == "Binary"):
-            print("Bin SVM")
-            classifier = joblib.load("storedTestSVM.sav")
+            classifier = joblib.load("storedBinarySVM.sav")
         else:
-            print("Multi SVM")
-            classifier = joblib.load("storedTestSVM_allClass.sav")
+            classifier = joblib.load("storedSVM_allClass.sav")
 
     elif (type == "K Nearest Neighbor"):
         if (binAllClass == "Binary"):
-            print("Bin KNN")
-            classifier = joblib.load("storedTestKNN.sav")
+            classifier = joblib.load("storedKNN.sav")
         else:
-            print("Multi KNN")
-            classifier = joblib.load("storedTestKNN_allClass.sav")
+            classifier = joblib.load("storedKNN_allClass.sav")
 
     elif (type == "Convolutional Neural Network"):
         if (binAllClass == "Binary"):
-            print("Binary CNN")
-            model = load_model('binaryModel.h5')
+            model = load_model('storedBinaryCNN.h5')
         else:
-            print("Multi CNN")
-            model = load_model('allClassModel.h5')
+            model = load_model('storedAllClassCNN.h5')
         print("Model loaded")
 
         eng.microDoppler_AWR1642_bulk_BPM(file, specfile, nargout=0)
