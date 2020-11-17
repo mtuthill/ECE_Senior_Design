@@ -43,7 +43,7 @@ class MainWindow:
     def classifyButtonClicked(self):
         print(file)
         fallNonFallClass = classify.classify(self.ui.algorithmDropDown.currentText(), self.ui.numClassCBox.currentText(), file)
-        sendSMS.sendSMS(fallNonFallClass)
+        #sendSMS.sendSMS(fallNonFallClass)
         outfile = 'out_spectrogram.png'
         self.ui.spectrogram.setPixmap(QPixmap("out_spectrogram.png"))
         print(fallNonFallClass)
@@ -58,13 +58,13 @@ class MainWindow:
                 self.ui.result.setMovie(gifFall)
                 gifFall.start()
                 self.ui.setStyleSheet("background-color: green;")
-                sendSMS()
 
             else:
                 gifNonFall = QMovie("media/Fall_gif.gif")
                 self.ui.result.setMovie(gifNonFall)
                 gifNonFall.start()
                 self.ui.setStyleSheet("background-color: red;")
+                sendSMS()
         else:
             #print("All class")
             if(fallNonFallClass == 0):

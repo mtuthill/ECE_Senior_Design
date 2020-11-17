@@ -30,7 +30,7 @@ numberOfRuns = 50			#Default it 50
 ##################################
 
 #get filenames for data
-names = ['GraceSpecs', 'MarcSpecs', 'PeteSpecs']
+names = ['GraceSpecsNew', 'MarcSpecsNew', 'PeteSpecsNew', 'CharlesSpecsNew']
 fallSubdirs = ['fallingSitting', 'fallingStanding', 'fallingWalking']
 nonFallSubdirs = ['Movement', 'Sitting', 'Walking']
 

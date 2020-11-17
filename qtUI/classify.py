@@ -13,6 +13,9 @@ from sklearn.svm import SVC
 from keras.models import load_model
 from keras.preprocessing import image
 
+import ftpAccess
+from ftplib import FTP
+
 def classify(type, binAllClass, file):
     eng = matlab.engine.start_matlab()
     specfile = "out_spectrogram.png"
@@ -79,4 +82,19 @@ def classify(type, binAllClass, file):
 
     #get classification result
     result = classifier.predict(selectedFeatures)
+
+    #write file
+    filename = "classificationInfo.txt"
+    classInfoFile = open(filename, "w")
+    classInfoFile.write("1\n")
+    classInfoFile.write(str(result[0]) + '\n')
+    classInfoFile.write(str(binAllClass))
+    classInfoFile.close()
+
+    #Send info to ftp
+    ftp = FTP('192.168.10.199')
+    ftp.login(user='pi', passwd = 'radar')
+    ftpAccess.uploadFileToServer(ftp, filename, "~/ftp/files", filename)
+    ftp.quit()
+
     return result

@@ -5,27 +5,21 @@ import sys
 import os
 import time
 
-class Ui(QtWidgets.QMainWindow):
-    def xor(self, lst1, lst2):
-        """ returns a tuple of items of item not in either of lists
-        """
-        x = lst2 if len(lst2) > len(lst1) else lst1
-        y = lst1 if len(lst1) < len(lst2) else lst2
-        return tuple(item for item in x if item not in y)
+from ftplib import FTP
+import ftpAccess
 
+class Ui(QtWidgets.QMainWindow):
     def resetButtonClicked(self):
         self.setStyleSheet("background-color: white;")
         gifResults = QMovie("media/resultsgif.gif")
         self.result.setMovie(gifResults)
         gifResults.start()
-        if (os.path.isfile("infoFromBoard.txt")):
-            os.remove("infoFromBoard.txt")
 
     def displayResult(self, fallNonFallClass, type):
         #Display result
         #0 = fallingSitting, 1 = fallingStanding, 2 = fallingWalking, 3 = movement, 4 = sitting, 5 = walking
         #or 0 = nonfall, 1 = fall
-        if (type == 0):
+        if (type == "Binary"):
             if(fallNonFallClass == 0):
                 gifFall = QMovie("media/Non-fall.gif")
                 self.result.setMovie(gifFall)
@@ -78,23 +72,28 @@ class Ui(QtWidgets.QMainWindow):
                 self.result.setMovie(gifNonFall)
                 gifNonFall.start()
                 self.setStyleSheet("background-color: red;")
+        #delete file
+        ftp = FTP('192.168.10.199')
+        ftp.login(user='pi', passwd = 'radar')
+        ftpAccess.deleteFileFromServer(ftp, "classificationInfo.txt", "~/ftp/files")
 
-    def slotDirChanged(self):
-        path = "./"
-        newContent = ''.join(self.xor(os.listdir(path), self._initialContent))
 
-        self._initialContent = os.listdir(path)
-        msg = ""
-        if newContent not in self._initialContent:
-            msg = "removed: %s" % newContent
-            self.resetButtonClicked()
-        else:
-            msg = "added: %s" %  newContent
-            file = open('infoFromBoard.txt', 'r')
-            Lines = file.readlines()
-            if (int(Lines[0]) == 1):
-                self.displayResult(int(Lines[1]), int(Lines[2]))
-        print(msg)
+    def slotCheckForFile(self):
+        #delete from local
+        if (os.path.exists('classificationInfo.txt')):
+            os.remove("classificationInfo.txt")
+
+        #Open ftp
+        ftp = FTP('192.168.10.199')
+        ftp.login(user='pi', passwd = 'radar')
+        ftpAccess.downloadFileFromServer(ftp, "classificationInfo.txt", "~/ftp/files", "classificationInfo.txt")
+
+        #If exists, process
+        if (os.path.exists('classificationInfo.txt')):
+            file = open('classificationInfo.txt')
+            lines = file.readlines()
+            file.close()
+            self.displayResult(int(lines[1]), lines[2])
 
     def __init__(self):
         super(Ui, self).__init__()
@@ -107,12 +106,9 @@ class Ui(QtWidgets.QMainWindow):
         self.result.setMovie(gifResults)
         gifResults.start()
 
-        self._pathToWatch = "./"
-        self._initialContent = os.listdir(self._pathToWatch)
-        self._fileSysWatcher = QtCore.QFileSystemWatcher()
-        self._fileSysWatcher.addPath(self._pathToWatch)
-
-        self._fileSysWatcher.directoryChanged.connect(self.slotDirChanged)
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.slotCheckForFile)
+        self.timer.start(3000)   #3 seconds
 
         self.show()
 

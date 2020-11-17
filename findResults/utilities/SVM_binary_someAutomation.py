@@ -19,8 +19,8 @@ import matplotlib.pyplot as plt
 #CHANGE THESE AS NEEDED
 ##################################
 numDCTFeatures = 10
-dctFeaturesFlag = 0
-envFeaturesFlag = 0
+dctFeaturesFlag = 1
+envFeaturesFlag = 1
 physFeaturesFlag = 1
 numFeaturesToSelect = 1
 mRMRType = "MIQ"			#Has to be "MIQ" or "MID"
@@ -81,8 +81,8 @@ numpyArrayofArrays = numpy.array([numpy.array(xi) for xi in allData])
 colNames = []
 for i in range(numFeatures):
 	colNames.append(str(i))
-kernels = ["poly", "rbf", "sigmoid"]
-nums = [1,2,3,4]
+kernels = ["linear", "poly", "rbf", "sigmoid"]
+nums = [1,2,3,4,5,6,7,8,9,10,11,12,13]
 array2d = []
 for j in kernels:
 	for k in nums:

@@ -27,7 +27,7 @@ kernel = "linear"			#Default is linear, can be "linear", "poly", "rbf", "sigmoid
 numberOfRuns = 50			#Default it 50
 ##################################
 
-names = ['GraceSpecs', 'MarcSpecs', 'PeteSpecs']
+names = ['GraceSpecsNew', 'MarcSpecsNew', 'PeteSpecsNew', 'CharlesSpecsNew']
 subDirs = ['fallingSitting', 'fallingStanding', 'fallingWalking', 'Movement', 'Sitting', 'Walking']
 
 #get filenames for data

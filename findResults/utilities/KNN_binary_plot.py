@@ -23,7 +23,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 ##################################
 numDCTFeatures = 10
 dctFeaturesFlag = 1
-envFeaturesFlag = 0
+envFeaturesFlag = 1
 physFeaturesFlag = 1
 numFeaturesToSelect = 2
 mRMRType = "MIQ"			#Has to be "MIQ" or "MID"
@@ -136,6 +136,8 @@ for i, clf in enumerate((knn3, knn7, knn11, knn15)):
     plt.scatter(dfFeatureSelectedDataNum0, dfFeatureSelectedDataNum1, c=results, cmap=cmap_bold)
     plt.xlim(xx.min(), xx.max())
     plt.ylim(yy.min(), yy.max())
+    plt.xlabel('10th DCT Coefficient')
+    plt.ylabel('8th DCT Coefficient')
     plt.xticks(())
     plt.yticks(())
     plt.title(titles[i])

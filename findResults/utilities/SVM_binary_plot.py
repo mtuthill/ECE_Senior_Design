@@ -13,6 +13,8 @@ from os.path import isfile, join
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
+from matplotlib.colors import ListedColormap
+
 
 import matplotlib.pyplot as plt
 
@@ -100,9 +102,11 @@ rbf_svc = SVC(kernel='rbf', gamma=0.7).fit(dfFeatureSelectedData, dfFeatureSelec
 poly_svc = SVC(kernel='poly', degree=3).fit(dfFeatureSelectedData, dfFeatureSelectedResults)
 sig_svc = SVC(kernel = 'sigmoid', gamma=2).fit(dfFeatureSelectedData, dfFeatureSelectedResults)
 
-dfFeatureSelectedDataNum0 = pandas.to_numeric(dfFeatureSelectedData["10"])
-dfFeatureSelectedDataNum1 = pandas.to_numeric(dfFeatureSelectedData["8"])
+dfFeatureSelectedDataNum0 = pandas.to_numeric(dfFeatureSelectedData[str(returnedInts[0])])
+dfFeatureSelectedDataNum1 = pandas.to_numeric(dfFeatureSelectedData[str(returnedInts[1])])
 
+cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA'])
+cmap_bold = ListedColormap(['#FF0000', '#00FF00'])
 
 x_min, x_max = dfFeatureSelectedDataNum0.min() - 1, dfFeatureSelectedDataNum0.max() + 1
 y_min, y_max = dfFeatureSelectedDataNum1.min() - 1, dfFeatureSelectedDataNum1.max() + 1
@@ -124,12 +128,10 @@ for i, clf in enumerate((svc, rbf_svc, poly_svc, sig_svc)):
 
     # Put the result into a color plot
     Z = Z.reshape(xx.shape)
-    plt.contourf(xx, yy, Z, cmap=plt.cm.coolwarm, alpha=0.8)
+    plt.contourf(xx, yy, Z, cmap=cmap_light, alpha=0.8)
 
     # Plot also the training points
-    plt.scatter(dfFeatureSelectedDataNum0, dfFeatureSelectedDataNum1, c=results, cmap=plt.cm.coolwarm)
-    plt.xlabel('10th DCT Coefficient')
-    plt.ylabel('8th DCT Coefficient')
+    plt.scatter(dfFeatureSelectedDataNum0, dfFeatureSelectedDataNum1, c=results, cmap=cmap_bold)
     plt.xlim(xx.min(), xx.max())
     plt.ylim(yy.min(), yy.max())
     plt.xticks(())
