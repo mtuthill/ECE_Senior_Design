@@ -46,16 +46,24 @@ def classify(type, binAllClass, file):
         test_image = np.expand_dims(test_image, axis = 0)
         result = model.predict(test_image)
         res = np.argmax(result)
-
-        dictAllClass = {0 : 'fallingSitting', 1: 'fallingStanding', 2: 'fallingWalking', 3: 'movement', 4: 'sitting', 5 : 'walkingData'}
-        dictBinary = {0 : 'nonFall', 1: 'fall'}
-
         if (binAllClass == "Binary"):
-            resultNum = dictBinary[res]
-        else:
-            resultNum = dictAllClass[res]
-
-        print("The predicted output is : ", resultNum)
+            if (res == 0):
+                res = 1
+            else:
+                res = 0
+#        else:
+#            if (res == 0):
+#                res = 3
+#            elif (res == 1):
+#                res = 4
+#            elif (res == 2):
+#                res = 5
+#            elif (res == 3):
+#                res = 0
+#            elif (res == 4):
+#                res = 1
+#            else:
+#                res = 2
 
         #write file
         filename = "classificationInfo.txt"
