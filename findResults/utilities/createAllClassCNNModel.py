@@ -25,14 +25,7 @@ import numpy as np
 from glob import glob
 import matplotlib.pyplot as plt
 
-def f1(y_true, y_pred): #taken from old keras source code
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
-    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-    precision = true_positives / (predicted_positives + K.epsilon())
-    recall = true_positives / (possible_positives + K.epsilon())
-    f1_val = 2*(precision*recall)/(precision+recall+K.epsilon())
-    return f1_val
+
 
 #get filenames for data
 names = ['GraceSpecs', 'MarcSpecs', 'PeteSpecs']
@@ -169,7 +162,7 @@ prediction = Dense(6, activation='softmax')(x)
 model = Model(inputs=vgg.input, outputs=prediction)
 model.compile(loss='categorical_crossentropy',
                       optimizer=optimizers.Adam(),
-                      metrics=['accuracy', f1])
+                      metrics=['accuracy'])
 model.summary()
 
 from datetime import datetime
@@ -193,7 +186,7 @@ score = model.evaluate(test_set)
 print('Test Loss:', score[0])
 print('Test accuracy:', score[1])
 
-print(history.history["f1"])
+#print(history.history["f1"])
 model.save('storedAllClassCNN.h5')
 
 shutil.rmtree("../../../ECE_Senior_Design_Our_Data/specsForMulticlassCNN")  
