@@ -47,7 +47,7 @@ class MainWindow:
         self._initialContent = os.listdir(self._pathToWatch)
         self._fileSysWatcher = QtCore.QFileSystemWatcher()
         self._fileSysWatcher.addPath(self._pathToWatch)
-        self._fileSysWatcher.addPath("./radarIn")
+        self._fileSysWatcher.addPath("./")
 
         self._fileSysWatcher.fileChanged.connect(self.slotFileChanged)
         self._fileSysWatcher.directoryChanged.connect(self.slotFileChanged)
@@ -59,20 +59,20 @@ class MainWindow:
 
     def slotFileChanged(self):
         print("File changed")
-        binFiles = glob.glob("./radarIn/*.bin")
+        binFiles = glob.glob("./*.bin")
         if (self.ui.autoEnableCheckbox.isChecked()):
-            if "./radarIn\\empty_target_Raw_0.bin" in binFiles:
-                if (os.stat('./radarIn/empty_target_Raw_0.bin').st_size >= 76799999):
+            if ".\\empty_target_Raw_0.bin" in binFiles:
+                if (os.stat('./empty_target_Raw_0.bin').st_size >= 76799999):
                     global file
-                    file = './radarIn/empty_target_Raw_0.bin'
+                    file = './empty_target_Raw_0.bin'
                     self.classifyButtonClicked()
-                    os.remove("./radarIn/empty_target_Raw_0.bin")
+                    os.remove("./empty_target_Raw_0.bin")
 
     def checkboxStateChanged(self):
-        binFiles = glob.glob("./radarIn/*.bin")
+        binFiles = glob.glob("./*.bin")
         print(binFiles)
-        if (self.ui.autoEnableCheckbox.isChecked() and "./radarIn\\empty_target_Raw_0.bin" in binFiles):
-            os.remove("./radarIn/empty_target_Raw_0.bin")
+        if (self.ui.autoEnableCheckbox.isChecked() and ".\\empty_target_Raw_0.bin" in binFiles):
+            os.remove("./empty_target_Raw_0.bin")
 
     def classifyButtonClicked(self):
         print(file)
