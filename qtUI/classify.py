@@ -20,6 +20,7 @@ from ftplib import FTP
 def classify(type, binAllClass, file):
     eng = matlab.engine.start_matlab()
     specfile = "out_spectrogram.png"
+    eng.microDoppler_AWR1642_bulk_BPM(file, specfile, nargout=0)
     if (type == "Support Vector Machine"):
         if (binAllClass == "Binary"):
             classifier = joblib.load("storedBinarySVM.sav")
@@ -79,7 +80,7 @@ def classify(type, binAllClass, file):
     else:
         h = open('featuresKNN.txt', 'r')
     numDCTFeatures = 10
-    features = eng.binToDct(file, specfile, numDCTFeatures)
+    features = eng.spectrogramToFeatures(specfile, 1, 1, 1, numDCTFeatures)
 
     #use only the features selected from classifier
     listofFeatures = []
