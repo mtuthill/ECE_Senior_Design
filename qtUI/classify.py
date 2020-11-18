@@ -51,19 +51,6 @@ def classify(type, binAllClass, file):
                 res = 1
             else:
                 res = 0
-#        else:
-#            if (res == 0):
-#                res = 3
-#            elif (res == 1):
-#                res = 4
-#            elif (res == 2):
-#                res = 5
-#            elif (res == 3):
-#                res = 0
-#            elif (res == 4):
-#                res = 1
-#            else:
-#                res = 2
 
         #write file
         filename = "classificationInfo.txt"

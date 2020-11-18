@@ -53,6 +53,10 @@ class MainWindow:
         self._fileSysWatcher.directoryChanged.connect(self.slotFileChanged)
         self.ui.autoEnableCheckbox.stateChanged.connect(self.checkboxStateChanged)
 
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.slotFileChanged)
+        self.timer.start(3000)   #3 seconds
+
     def slotFileChanged(self):
         print("File changed")
         binFiles = glob.glob("./radarIn/*.bin")
