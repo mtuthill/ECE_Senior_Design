@@ -74,7 +74,7 @@ class Ui(QtWidgets.QMainWindow):
                 gifNonFall.start()
                 self.setStyleSheet("background-color: red;")
         #delete file
-        ftp = FTP('192.168.10.199')
+        ftp = FTP('172.20.10.7')
         ftp.login(user='pi', passwd = 'radar')
         ftpAccess.deleteFileFromServer(ftp, "classificationInfo.txt", "~/ftp/files")
 
@@ -85,7 +85,7 @@ class Ui(QtWidgets.QMainWindow):
             os.remove("classificationInfo.txt")
 
         #Open ftp
-        ftp = FTP('192.168.10.199')
+        ftp = FTP('172.20.10.7')
         ftp.login(user='pi', passwd = 'radar')
         ftpAccess.downloadFileFromServer(ftp, "classificationInfo.txt", "~/ftp/files", "classificationInfo.txt")
 
